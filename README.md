@@ -70,3 +70,10 @@ The site uses `coursepilot-logo.png` in the header and footer. Keep this image i
 
 ## Publish/update on GitHub Pages
 Upload both `index.html` and `coursepilot-logo.png` to the repository root, replacing the existing `index.html`, then commit the changes. Do not upload the ZIP itself as the website; extract it first.
+
+
+## Latest information and certificates update
+- Removed AI-led marketing language; the brand is presented as a training-support service.
+- Added a section explaining the planned workflow for current legislation, regulations, guidance, statistics and source review.
+- Added certificate templates and a personalised certificate service enquiry as possible outputs.
+- Certificate and compliance claims remain subject to competent review. The current static prototype does not automatically research or verify current legal requirements or issue accredited certificates.
