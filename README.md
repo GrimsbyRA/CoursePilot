@@ -59,3 +59,14 @@ This prototype is not a production application and is not legal or regulatory ad
 
 ## Functional launch-pack workflow
 The form now builds a local starter pack from the submitted course details, including selected outlines for course plans, presentation structure, quiz preparation, learner handout, social posts, flyer copy, email promotion and a launch administration checklist. The user can copy or download the pack as a text file. This is deterministic template output, not an AI API call. The logo is only previewed in the browser and is not saved or embedded in the output. No form data is transmitted, persisted online, or used for payment.
+
+
+## Positioning update
+The landing page now sells CoursePilot as an end-to-end training support hub: course materials, consistent branding, promotional copy and launch administration. It deliberately distinguishes the current template-based browser prototype from future AI generation, saved projects, finished PowerPoint export, automatic publishing and payment features.
+
+
+## Logo included
+The site uses `coursepilot-logo.png` in the header and footer. Keep this image in the same repository folder as `index.html` when uploading to GitHub Pages.
+
+## Publish/update on GitHub Pages
+Upload both `index.html` and `coursepilot-logo.png` to the repository root, replacing the existing `index.html`, then commit the changes. Do not upload the ZIP itself as the website; extract it first.
