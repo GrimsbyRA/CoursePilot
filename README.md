@@ -55,3 +55,7 @@ This prototype is not a production application and is not legal or regulatory ad
 - Added optional local logo selection with browser preview.
 - Added preferred colour scheme to the course request brief.
 - Logo selection stays in the browser; it is not uploaded or persisted by this static prototype.
+
+
+## Functional launch-pack workflow
+The form now builds a local starter pack from the submitted course details, including selected outlines for course plans, presentation structure, quiz preparation, learner handout, social posts, flyer copy, email promotion and a launch administration checklist. The user can copy or download the pack as a text file. This is deterministic template output, not an AI API call. The logo is only previewed in the browser and is not saved or embedded in the output. No form data is transmitted, persisted online, or used for payment.
