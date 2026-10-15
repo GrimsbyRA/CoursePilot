@@ -1,4 +1,4 @@
-# CoursePilot website prototype
+# CoursePilot website prototype — refreshed design
 
 ## What is included
 - Responsive landing page for an AI-assisted training administration service
