@@ -47,3 +47,11 @@ A sensible stack after demand validation:
 - Monitoring: logs, rate limits, backups and error alerts
 
 This prototype is not a production application and is not legal or regulatory advice.
+
+
+## Recent updates
+- Added a top navigation link to Popular courses and Build a course.
+- Added a list of common cross-sector course topics (illustrative examples, not a verified ranking).
+- Added optional local logo selection with browser preview.
+- Added preferred colour scheme to the course request brief.
+- Logo selection stays in the browser; it is not uploaded or persisted by this static prototype.
