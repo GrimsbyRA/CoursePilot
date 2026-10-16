@@ -1,0 +1,6 @@
+# Supabase project settings (do not put service_role key in browser files)
+SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+SUPABASE_ANON_KEY=YOUR_PUBLIC_ANON_KEY
+ALLOWED_ORIGIN=https://grimsbyra.github.io
+RESEND_API_KEY=YOUR_RESEND_API_KEY
+CERTIFICATE_FROM_EMAIL=certificates@YOUR_VERIFIED_DOMAIN

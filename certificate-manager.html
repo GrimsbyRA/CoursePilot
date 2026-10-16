@@ -55,8 +55,15 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <div class="field"><label for="savedTemplate">Saved course templates</label><select id="savedTemplate"><option value="">Choose a saved template…</option></select></div>
 <div class="field" style="align-self:end"><button id="loadSavedTemplate" class="secondary" type="button">Load saved template</button></div>
 </div>
-<div class="field"><label for="pdfFile">Upload existing PDF certificate template</label><input id="pdfFile" type="file" accept="application/pdf,.pdf"><div class="help">Use a clean, blank certificate PDF. This prototype overlays text on page 1 of the PDF.</div></div>
-<div class="actions"><button id="loadTemplate" class="green">Load and preview PDF</button><button id="saveTemplate" class="secondary" disabled>Save course template</button><button id="newTemplate" class="secondary">New template</button></div>
+<div class="field"><label for="builtInStyle">Choose a built-in design</label><select id="builtInStyle">
+<option value="classic">Classic Navy & Gold</option>
+<option value="modern">Modern Teal</option>
+<option value="minimal">Minimal Professional</option>
+<option value="industrial">Industrial Safety</option>
+<option value="elegant">Elegant Burgundy</option>
+</select><div class="help">Choose a ready-made design, or upload your own existing PDF below. Your TIS Abrasive Wheels template remains available too.</div></div>
+<div class="field"><label for="pdfFile">Or upload your own PDF certificate template</label><input id="pdfFile" type="file" accept="application/pdf,.pdf"><div class="help">For example, use your existing TIS certificate to preserve its exact layout and wording.</div></div>
+<div class="actions"><button id="loadBuiltInTemplate" class="green">Use selected design</button><button id="loadTemplate" class="secondary">Load uploaded PDF</button><button id="loadBundledTemplate" class="secondary">Load supplied Abrasive Wheels template</button><button id="saveTemplate" class="secondary" disabled>Save course template</button><button id="newTemplate" class="secondary">New template</button></div>
 <p id="templateStatus" class="small" role="status">No PDF loaded.</p>
 </div>
 <div class="card">
@@ -82,9 +89,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <section class="panel" id="panel-learners">
 <div class="card">
 <div class="rowhead"><div><h2>Enter learners</h2><p class="sub">Add a learner at a time, or import a CSV file for a whole class.</p></div><button id="addLearner" class="green">+ Add learner</button></div>
-<div class="field" style="margin-top:14px"><label for="csvFile">Import learner list (.csv)</label><input id="csvFile" type="file" accept=".csv,text/csv"><div class="help">Use column headings: learnerName, courseTitle, completionDate, instructor, duration, certificateNo, expiryDate, email. Learner name is required. Dates should be YYYY-MM-DD for best results.</div></div>
+<div class="field" style="margin-top:14px"><label for="csvFile">Import learner list (.csv)</label><input id="csvFile" type="file" accept=".csv,text/csv"><div class="help">Use column headings: learnerName, email, employer, courseTitle, candidateCount, completionDate, duration, testDate, instructor, instructorRegNo, examiner, examinerRegNo, authorisedBy, certificateNo, expiryDate. Learner name is required. Dates should be YYYY-MM-DD for best results.</div></div>
 <div class="actions"><button id="downloadCsvTemplate" class="secondary">Download sample CSV</button><button id="clearLearners" class="danger">Clear batch</button></div>
-<div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>Learner name *</th><th>Email</th><th>Course title</th><th>Completion date</th><th>Instructor</th><th>Duration</th><th>Expiry date</th><th></th></tr></thead><tbody id="learnerRows"></tbody></table></div>
+<div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>Learner name *</th><th>Email</th><th>Employer</th><th>Course title</th><th>Candidates</th><th>Training date</th><th>Duration</th><th>Test date</th><th>Instructor</th><th>Instructor Reg.No</th><th>Examiner</th><th>Examiner Reg.No</th><th>Authorised by</th><th>Certificate No</th><th>Expiry date</th><th></th></tr></thead><tbody id="learnerRows"></tbody></table></div>
 <p class="small">Certificate references are generated automatically if you leave the reference blank.</p>
 </div>
 </section>
@@ -119,8 +126,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 'use strict';
 const $ = id => document.getElementById(id);
 const fieldDefs = [
- ['learnerName','Learner name'],['courseTitle','Course title'],['completionDate','Completion date'],
- ['instructor','Instructor / assessor'],['duration','Course duration'],['certificateNo','Certificate reference'],['expiryDate','Expiry date']
+ ['learnerName','Learner name'],['employer','Employer / organisation'],['courseTitle','Course title'],
+ ['candidateCount','Number of candidates'],['completionDate','Training date'],['duration','Training duration'],
+ ['testDate','Test date'],['instructor','Instructor name'],['instructorRegNo','Instructor registration number'],
+ ['examiner','Examiner name'],['examinerRegNo','Examiner registration number'],
+ ['authorisedBy','Authorised by'],['certificateNo','Certificate reference'],['expiryDate','Expiry date (optional)']
 ];
 let templateBytes=null, pdfDocument=null, templateBase64=null, pageViewport=null, currentTemplateId=null;
 let positions={}, learners=[], register=JSON.parse(localStorage.getItem('cp_cert_register_v1')||'[]');
@@ -140,6 +150,84 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setT
 function renderPositionList(){const list=$('positionList');list.innerHTML='';fieldDefs.forEach(([key,label])=>{const p=positions[key];const b=document.createElement('button');b.type='button';b.className='posbtn'+(key===$('activeField').value?' selected':'');b.textContent=label+': '+(p?`${Math.round(p.x*100)}%, ${Math.round(p.y*100)}%`:'not set');b.addEventListener('click',()=>{$('activeField').value=key;renderPositionList()});list.appendChild(b);});}
 $('activeField').addEventListener('change',renderPositionList);
 $('pdfFile').addEventListener('change',()=>{$('templateStatus').textContent=$('pdfFile').files[0]?`Selected: ${$('pdfFile').files[0].name}. Click Load and preview PDF.`:'No PDF loaded.';});
+
+function drawBuiltInDesign(doc, style) {
+ const W=842, H=595, page=doc.addPage([W,H]);
+ const C={
+  navy:PDFLib.rgb(20/255,44/255,70/255), gold:PDFLib.rgb(190/255,150/255,66/255),
+  teal:PDFLib.rgb(23/255,107/255,85/255), pale:PDFLib.rgb(240/255,246/255,244/255),
+  grey:PDFLib.rgb(95/255,107/255,120/255), light:PDFLib.rgb(232/255,237/255,242/255),
+  burgundy:PDFLib.rgb(105/255,34/255,52/255), white:PDFLib.rgb(1,1,1),
+  black:PDFLib.rgb(28/255,35/255,43/255), amber:PDFLib.rgb(214/255,145/255,35/255)
+ };
+ const regular=doc.embedFont(PDFLib.StandardFonts.Helvetica);
+ const bold=doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+ const drawLine=(x1,y1,x2,y2,color,thickness=1)=>page.drawLine({start:{x:x1,y:y1},end:{x:x2,y:y2},color,thickness});
+ const text=(s,x,y,size,font,color)=>page.drawText(s,{x,y,size,font,color});
+ page.drawRectangle({x:0,y:0,width:W,height:H,color:C.white});
+ if(style==='classic'){
+   page.drawRectangle({x:18,y:18,width:W-36,height:H-36,borderColor:C.navy,borderWidth:3});
+   page.drawRectangle({x:27,y:27,width:W-54,height:H-54,borderColor:C.gold,borderWidth:1});
+   page.drawRectangle({x:18,y:H-90,width:W-36,height:54,color:C.navy});
+   text('CERTIFICATE OF TRAINING',245,H-69,22,bold,C.white);
+   text('COURSE COMPLETION & ASSESSMENT',260,H-84,10,regular,C.gold);
+   drawLine(100,125,W-100,125,C.gold,1.5);
+ } else if(style==='modern'){
+   page.drawRectangle({x:0,y:H-24,width:W,height:24,color:C.teal});
+   page.drawRectangle({x:0,y:0,width:22,height:H,color:C.teal});
+   page.drawRectangle({x:40,y:35,width:W-75,height:H-70,borderColor:C.light,borderWidth:2});
+   text('CERTIFICATE',70,H-95,28,bold,C.teal);
+   text('OF COURSE COMPLETION',72,H-119,12,regular,C.grey);
+   drawLine(70,145,W-65,145,C.teal,2);
+ } else if(style==='minimal'){
+   page.drawRectangle({x:24,y:24,width:W-48,height:H-48,borderColor:C.light,borderWidth:2});
+   drawLine(72,H-85,W-72,H-85,C.navy,2);
+   text('CERTIFICATE OF ACHIEVEMENT',72,H-70,23,bold,C.navy);
+   text('TRAINING  •  ASSESSMENT  •  COMPETENCE',74,H-104,10,regular,C.grey);
+   drawLine(72,100,W-72,100,C.navy,1);
+ } else if(style==='industrial'){
+   page.drawRectangle({x:0,y:H-72,width:W,height:72,color:C.navy});
+   page.drawRectangle({x:0,y:0,width:W,height:14,color:C.amber});
+   for(let x=0;x<W;x+=38){page.drawRectangle({x,y:0,width:18,height:14,color:C.black});}
+   text('TRAINING & SAFETY CERTIFICATE',48,H-45,22,bold,C.white);
+   text('PRACTICAL TRAINING RECORD',50,H-61,10,regular,C.amber);
+   page.drawRectangle({x:34,y:32,width:W-68,height:H-125,borderColor:C.amber,borderWidth:1.5});
+ } else {
+   page.drawRectangle({x:20,y:20,width:W-40,height:H-40,borderColor:C.burgundy,borderWidth:2});
+   page.drawRectangle({x:29,y:29,width:W-58,height:H-58,borderColor:C.burgundy,borderWidth:.7});
+   text('CERTIFICATE OF COMPLETION',190,H-75,23,bold,C.burgundy);
+   text('PROFESSIONAL TRAINING RECORD',275,H-96,10,regular,C.grey);
+   drawLine(105,122,W-105,122,C.burgundy,1);
+ }
+ const headingY = style==='classic'?H-145:style==='industrial'?H-125:style==='modern'?H-150:H-145;
+ text('This is to certify that',W/2-82,headingY,13,regular,C.grey);
+ // Starter positions are percentage-based from the top-left in the app.
+ return {page, positions:{
+   learnerName:{x:.5,y:.39}, courseTitle:{x:.5,y:.49}, completionDate:{x:.25,y:.68},
+   instructor:{x:.25,y:.76}, duration:{x:.72,y:.68}, certificateNo:{x:.72,y:.76}, expiryDate:{x:.5,y:.82}
+ }};
+}
+async function createBuiltInTemplate(style){
+ const doc=await PDFLib.PDFDocument.create();
+ const design=drawBuiltInDesign(doc,style);
+ const bytes=await doc.save();
+ positions=design.positions;
+ return bytes;
+}
+const builtInLabels={classic:'Classic Navy & Gold',modern:'Modern Teal',minimal:'Minimal Professional',industrial:'Industrial Safety',elegant:'Elegant Burgundy'};
+$('loadBuiltInTemplate').addEventListener('click',async()=>{
+ try{
+   const style=$('builtInStyle').value;
+   templateBytes=await createBuiltInTemplate(style);
+   await loadPdfBytes(templateBytes);
+   currentTemplateId=null;
+   $('courseName').value=$('courseName').value.trim()||'New course certificate';
+   $('templateName').value=builtInLabels[style];
+   $('templateStatus').textContent=`Loaded built-in design: ${builtInLabels[style]}. Adjust field positions and save it as a course template.`;
+   renderPositionList();drawMarkers();updateSummary();
+ }catch(e){console.error(e);alert('Could not create built-in design: '+e.message)}
+});
+
 async function loadPdfBytes(bytes){
  if(!window.pdfjsLib||!window.PDFLib)throw new Error('Required PDF libraries did not load. Check internet access and reload this page.');
  templateBytes=bytes;templateBase64=toBase64(bytes);
@@ -161,10 +249,30 @@ $('loadTemplate').addEventListener('click',async()=>{
  if(f.size>12*1024*1024){alert('For this prototype, use a PDF under 12 MB.');return}
  try{await loadPdfBytes(new Uint8Array(await f.arrayBuffer()));currentTemplateId=null;positions={};renderPositionList();drawMarkers();}catch(e){console.error(e);alert('Could not load this PDF: '+e.message)}
 });
+$('loadBundledTemplate').addEventListener('click',async()=>{
+ try{
+   const res=await fetch('./aw-certificate-template-blank.pdf');
+   if(!res.ok)throw new Error('Bundled PDF not found beside this HTML file. Download the blank template and upload it using the file picker.');
+   await loadPdfBytes(new Uint8Array(await res.arrayBuffer()));
+   $('courseName').value='Experienced Operator Abrasive Wheels';
+   $('templateName').value='TIS Abrasive Wheels Certificate';
+   positions={
+    learnerName:{x:0.505,y:0.242}, employer:{x:0.50,y:0.317},
+    candidateCount:{x:0.42,y:0.422}, completionDate:{x:0.42,y:0.456},
+    duration:{x:0.625,y:0.456}, testDate:{x:0.27,y:0.494},
+    instructor:{x:0.285,y:0.529}, instructorRegNo:{x:0.635,y:0.529},
+    examiner:{x:0.285,y:0.565}, examinerRegNo:{x:0.635,y:0.565},
+    certificateNo:{x:0.28,y:0.712}
+   };
+   $('fontSize').value=16;$('textAlign').value='left';currentTemplateId=null;
+   renderPositionList();await redrawPdfPreview();
+   $('templateStatus').textContent='Supplied TIS Abrasive Wheels template loaded with starter field positions. Check each field and adjust as needed, then save the template.';
+ }catch(e){alert('Could not load bundled template: '+e.message)}
+});
 function drawMarkers(){const canvas=$('pdfCanvas');if(!canvas.width)return;const ctx=canvas.getContext('2d');fieldDefs.forEach(([key,label])=>{const p=positions[key];if(!p)return;const x=p.x*canvas.width,y=p.y*canvas.height;ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle=key===$('activeField').value?'#176b55':'#d97706';ctx.fill();ctx.fillStyle='#142c46';ctx.font='11px sans-serif';ctx.fillText(label,x+7,y-7);});}
 $('pdfCanvas').addEventListener('click',e=>{if(!pageViewport||!templateBytes)return;const r=e.currentTarget.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;positions[$('activeField').value]={x,y};renderPositionList();redrawPdfPreview();});
 async function redrawPdfPreview(){if(!pdfDocument)return;const page=await pdfDocument.getPage(1),canvas=$('pdfCanvas'),ctx=canvas.getContext('2d');await page.render({canvasContext:ctx,viewport:pageViewport}).promise;drawMarkers();if(sampleMode)await drawSamplePreview();}
-async function drawSamplePreview(){if(!templateBytes||!window.PDFLib)return;try{const doc=await PDFLib.PDFDocument.load(templateBytes),page=doc.getPages()[0],{width,height}=page.getSize(),font=await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);fieldDefs.forEach(([key,label])=>{const p=positions[key];if(!p)return;const text=key==='learnerName'?'Alex Example':key==='courseTitle'?($('courseName').value||'Example course'):key==='completionDate'?today():key==='instructor'?'Course Instructor':key==='duration'?'1 day':key==='certificateNo'?'CP-DEMO-0001':key==='expiryDate'?'':label;drawText(page,text,p,width,height,font);});const data=await doc.save(),blob=new Blob([data],{type:'application/pdf'}),url=URL.createObjectURL(blob);window.open(url,'_blank','noopener');setTimeout(()=>URL.revokeObjectURL(url),60000);}catch(e){alert('Preview failed: '+e.message)}}
+async function drawSamplePreview(){if(!templateBytes||!window.PDFLib)return;try{const doc=await PDFLib.PDFDocument.load(templateBytes),page=doc.getPages()[0],{width,height}=page.getSize(),font=await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);fieldDefs.forEach(([key,label])=>{const p=positions[key];if(!p)return;const text=key==='learnerName'?'Alex Example':key==='courseTitle'?($('courseName').value||'Example course'):key==='employer'?'Example Company':key==='candidateCount'?'2':key==='completionDate'?today():key==='duration'?'4hrs':key==='testDate'?today():key==='instructor'?'Chris Timson':key==='instructorRegNo'?'1:26307':key==='examiner'?'Chris Timson':key==='examinerRegNo'?'1:26307':key==='authorisedBy'?'Matthew Burton':key==='certificateNo'?'AW/DEMO/001':key==='expiryDate'?'':label;drawText(page,text,p,width,height,font);});const data=await doc.save(),blob=new Blob([data],{type:'application/pdf'}),url=URL.createObjectURL(blob);window.open(url,'_blank','noopener');setTimeout(()=>URL.revokeObjectURL(url),60000);}catch(e){alert('Preview failed: '+e.message)}}
 $('testPreview').addEventListener('click',()=>{sampleMode=true;drawSamplePreview()});
 function hexRgb(hex){const s=hex.replace('#','');return PDFLib.rgb(parseInt(s.slice(0,2),16)/255,parseInt(s.slice(2,4),16)/255,parseInt(s.slice(4,6),16)/255);}
 function drawText(page,text,p,width,height,font){if(!text||!p)return;const size=Math.max(6,Math.min(48,Number($('fontSize').value)||22));const str=String(text);const w=font.widthOfTextAtSize(str,size);let x=p.x*width;if($('textAlign').value==='center')x-=w/2;else if($('textAlign').value==='right')x-=w;x=Math.max(2,Math.min(width-w-2,x));const y=height-p.y*height-size*0.35;page.drawText(str,{x,y:Math.max(2,Math.min(height-size-2,y)),size,font,color:hexRgb($('textColor').value)});}
@@ -178,14 +286,14 @@ $('saveTemplate').addEventListener('click',()=>{
  currentTemplateId=id;saveLocal();$('templateStatus').textContent=`Saved template: ${name}. Keep a backup of the original PDF.`;
 });
 $('newTemplate').addEventListener('click',()=>{currentTemplateId=null;templateBytes=null;templateBase64=null;pdfDocument=null;pageViewport=null;positions={};$('courseName').value='';$('templateName').value='';$('pdfFile').value='';$('saveTemplate').disabled=true;$('pdfCanvas').style.display='none';$('canvasEmpty').style.display='block';$('templateStatus').textContent='Ready for a new template.';renderPositionList();});
-function newLearner(){return {learnerName:'',email:'',courseTitle:$('courseName').value||'',completionDate:today(),instructor:'',duration:'',certificateNo:'',expiryDate:''};}
-function renderLearners(){const tbody=$('learnerRows');tbody.innerHTML='';if(!learners.length){tbody.innerHTML='<tr><td colspan="8" class="empty">No learners added yet.</td></tr>';updateSummary();renderStats();return}
-learners.forEach((l,i)=>{const tr=document.createElement('tr');const fields=[['learnerName','Learner name'],['email','Email'],['courseTitle','Course title'],['completionDate','Completion date'],['instructor','Instructor'],['duration','Duration'],['expiryDate','Expiry date']];fields.forEach(([key,label])=>{const td=document.createElement('td'),input=document.createElement('input');input.setAttribute('aria-label',label+' row '+(i+1));input.value=l[key]||'';input.type=(key==='completionDate'||key==='expiryDate')?'date':'text';if(key==='email')input.type='email';if(key==='learnerName')input.required=true;input.addEventListener('input',()=>{learners[i][key]=input.value;updateSummary()});td.appendChild(input);tr.appendChild(td)});const td=document.createElement('td'),btn=document.createElement('button');btn.textContent='Remove';btn.className='danger';btn.type='button';btn.addEventListener('click',()=>{learners.splice(i,1);renderLearners()});td.appendChild(btn);tr.appendChild(td);tbody.appendChild(tr)});renderStats();updateSummary();}
+function newLearner(){return {learnerName:'',email:'',employer:'',courseTitle:$('courseName').value||'',candidateCount:'',completionDate:today(),duration:'',testDate:today(),instructor:'',instructorRegNo:'',examiner:'',examinerRegNo:'',authorisedBy:'',certificateNo:'',expiryDate:''};}
+function renderLearners(){const tbody=$('learnerRows');tbody.innerHTML='';if(!learners.length){tbody.innerHTML='<tr><td colspan="16" class="empty">No learners added yet.</td></tr>';updateSummary();renderStats();return}
+learners.forEach((l,i)=>{const tr=document.createElement('tr');const fields=[['learnerName','Learner name'],['email','Email'],['employer','Employer'],['courseTitle','Course title'],['candidateCount','Candidates'],['completionDate','Training date'],['duration','Duration'],['testDate','Test date'],['instructor','Instructor'],['instructorRegNo','Instructor Reg.No'],['examiner','Examiner'],['examinerRegNo','Examiner Reg.No'],['authorisedBy','Authorised by'],['certificateNo','Certificate No'],['expiryDate','Expiry date']];fields.forEach(([key,label])=>{const td=document.createElement('td'),input=document.createElement('input');input.setAttribute('aria-label',label+' row '+(i+1));input.value=l[key]||'';input.type=(key==='completionDate'||key==='testDate'||key==='expiryDate')?'date':'text';if(key==='email')input.type='email';if(key==='learnerName')input.required=true;input.addEventListener('input',()=>{learners[i][key]=input.value;updateSummary()});td.appendChild(input);tr.appendChild(td)});const td=document.createElement('td'),btn=document.createElement('button');btn.textContent='Remove';btn.className='danger';btn.type='button';btn.addEventListener('click',()=>{learners.splice(i,1);renderLearners()});td.appendChild(btn);tr.appendChild(td);tbody.appendChild(tr)});renderStats();updateSummary();}
 $('addLearner').addEventListener('click',()=>{learners.push(newLearner());renderLearners()});
 $('clearLearners').addEventListener('click',()=>{if(confirm('Clear all learners from the current batch?')){learners=[];renderLearners()}});
 function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'&&quoted&&n==='"'){cell+='"';i++}else if(c==='"'){quoted=!quoted}else if(c===','&&!quoted){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))rows.push(row);row=[];cell=''}else cell+=c}row.push(cell);if(row.some(v=>v.trim()))rows.push(row);return rows}
-$('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const rows=parseCsv(await f.text());if(rows.length<2)throw new Error('CSV needs a header row and at least one learner row.');const headers=rows[0].map(s=>s.trim().replace(/^\uFEFF/,''));const allowed=['learnerName','email','courseTitle','completionDate','instructor','duration','certificateNo','expiryDate'];const map={};headers.forEach((h,i)=>{const normalized=allowed.find(a=>a.toLowerCase()===h.toLowerCase().replace(/[\s_-]/g,''))||allowed.find(a=>a.toLowerCase()===h.toLowerCase());if(normalized)map[normalized]=i});if(map.learnerName===undefined)throw new Error('Could not find a learnerName column. Use the sample CSV headings.');const imported=rows.slice(1).map(r=>{const l=newLearner();allowed.forEach(k=>{if(map[k]!==undefined)l[k]=(r[map[k]]||'').trim()});return l}).filter(l=>l.learnerName);if(!imported.length)throw new Error('No learner names found.');learners=learners.concat(imported);renderLearners();$('templateStatus').textContent=`Imported ${imported.length} learners from ${f.name}.`;setTab('learners');}catch(err){alert('CSV import failed: '+err.message)}finally{e.target.value=''}});
-$('downloadCsvTemplate').addEventListener('click',()=>downloadBlob('coursepilot-learners-sample.csv','text/csv','learnerName,email,courseTitle,completionDate,instructor,duration,certificateNo,expiryDate\nAlex Example,alex@example.com,Abrasive Wheels Training,2026-10-16,Trainer Name,Half day,,\nJordan Example,jordan@example.com,Abrasive Wheels Training,2026-10-16,Trainer Name,Half day,,\n'));
+$('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const rows=parseCsv(await f.text());if(rows.length<2)throw new Error('CSV needs a header row and at least one learner row.');const headers=rows[0].map(s=>s.trim().replace(/^\uFEFF/,''));const allowed=['learnerName','email','employer','courseTitle','candidateCount','completionDate','duration','testDate','instructor','instructorRegNo','examiner','examinerRegNo','authorisedBy','certificateNo','expiryDate'];const map={};headers.forEach((h,i)=>{const normalized=allowed.find(a=>a.toLowerCase()===h.toLowerCase().replace(/[\s_-]/g,''))||allowed.find(a=>a.toLowerCase()===h.toLowerCase());if(normalized)map[normalized]=i});if(map.learnerName===undefined)throw new Error('Could not find a learnerName column. Use the sample CSV headings.');const imported=rows.slice(1).map(r=>{const l=newLearner();allowed.forEach(k=>{if(map[k]!==undefined)l[k]=(r[map[k]]||'').trim()});return l}).filter(l=>l.learnerName);if(!imported.length)throw new Error('No learner names found.');learners=learners.concat(imported);renderLearners();$('templateStatus').textContent=`Imported ${imported.length} learners from ${f.name}.`;setTab('learners');}catch(err){alert('CSV import failed: '+err.message)}finally{e.target.value=''}});
+$('downloadCsvTemplate').addEventListener('click',()=>downloadBlob('coursepilot-learners-sample.csv','text/csv','learnerName,email,employer,courseTitle,candidateCount,completionDate,duration,testDate,instructor,instructorRegNo,examiner,examinerRegNo,authorisedBy,certificateNo,expiryDate\nAlex Example,alex@example.com,Example Company,Experienced Operator Abrasive Wheels,2,2026-10-16,4hrs,2026-10-16,Chris Timson,1:26307,Chris Timson,1:26307,Matthew Burton,,\nJordan Example,jordan@example.com,Example Company,Experienced Operator Abrasive Wheels,2,2026-10-16,4hrs,2026-10-16,Chris Timson,1:26307,Chris Timson,1:26307,Matthew Burton,,\n'));
 function updateSummary(){const valid=learners.filter(l=>l.learnerName.trim()).length;const mapped=fieldDefs.filter(([k])=>positions[k]).length;$('generationSummary').textContent=`Template: ${$('courseName').value||'not named'} · Learners: ${valid} valid of ${learners.length} · Fields positioned: ${mapped} of ${fieldDefs.length}. ${!templateBytes?'Load a PDF template first.':valid?'Ready to generate.':'Add at least one learner with a name.'}`;$('generateAll').disabled=!templateBytes||valid===0;$('generateSeparate').disabled=!templateBytes||valid===0;}
 ['courseName','defaultCourse','defaultInstructor'].forEach(id=>$(id).addEventListener('input',updateSummary));
 async function makePdf(learner){if(!templateBytes)throw new Error('No PDF template loaded.');const doc=await PDFLib.PDFDocument.load(templateBytes),page=doc.getPages()[0],{width,height}=page.getSize(),font=await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);const l={...learner};l.courseTitle=l.courseTitle||$('defaultCourse').value||$('courseName').value;l.instructor=l.instructor||$('defaultInstructor').value;l.certificateNo=l.certificateNo||`CP-${(l.completionDate||today()).replace(/-/g,'')}-${Math.random().toString(36).slice(2,7).toUpperCase()}`;fieldDefs.forEach(([key])=>{const p=positions[key];if(p)drawText(page,l[key],p,width,height,font)});return {bytes:await doc.save(),learner:l};}
@@ -204,7 +312,7 @@ $('generateAll').addEventListener('click',()=>generateBatch(true));$('generateSe
 function downloadBlob(name,type,data){const blob=data instanceof Blob?data:new Blob([data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
 function renderRegister(){const tbody=$('registerRows'),q=($('registerSearch')?.value||'').toLowerCase();if(!tbody)return;const items=register.filter(r=>[r.id,r.learnerName,r.courseTitle,r.email].some(v=>String(v||'').toLowerCase().includes(q)));tbody.innerHTML='';if(!items.length){tbody.innerHTML='<tr><td colspan="6" class="empty">No matching certificates in this browser.</td></tr>';return}items.forEach(r=>{const tr=document.createElement('tr');[r.id,r.learnerName,r.courseTitle,r.issuedAt?new Date(r.issuedAt).toLocaleDateString():'',r.email||'—',r.status||'Generated'].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});tbody.appendChild(tr)});}
 $('registerSearch').addEventListener('input',renderRegister);
-$('exportRegister').addEventListener('click',()=>{const cols=['id','learnerName','email','courseTitle','completionDate','issuedAt','status','filename'];const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';downloadBlob('coursepilot-certificate-register.csv','text/csv',[cols.join(','),...register.map(r=>cols.map(c=>esc(r[c])).join(','))].join('\n'));});
+$('exportRegister').addEventListener('click',()=>{const cols=['id','learnerName','email','employer','courseTitle','candidateCount','completionDate','duration','testDate','instructor','instructorRegNo','examiner','examinerRegNo','authorisedBy','issuedAt','status','filename'];const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';downloadBlob('coursepilot-certificate-register.csv','text/csv',[cols.join(','),...register.map(r=>cols.map(c=>esc(r[c])).join(','))].join('\n'));});
 $('clearRegister').addEventListener('click',()=>{if(confirm('Permanently clear the certificate register stored in this browser?')){register=[];saveLocal()}});
 renderPositionList();renderLearners();renderStats();renderSavedTemplates();renderRegister();updateSummary();
 })();

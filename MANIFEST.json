@@ -1,0 +1,16 @@
+{
+  "name": "CoursePilot Certificate Manager deployment starter",
+  "version": "0.4.0",
+  "status": "prototype plus backend starter; not production-ready until front-end integration and testing",
+  "site_files": [
+    "site/certificate-manager.html",
+    "site/aw-certificate-template-blank.pdf",
+    "site/sample-learners.csv",
+    "site/ADD-TO-NAVIGATION.html.txt"
+  ],
+  "backend_files": [
+    "supabase/migrations/001_coursepilot_certificate_manager.sql",
+    "supabase/functions/send-certificate-email/index.ts",
+    "supabase/ENVIRONMENT-VARIABLES.example.txt"
+  ]
+}

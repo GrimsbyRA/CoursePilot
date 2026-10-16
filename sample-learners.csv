@@ -1,3 +1,3 @@
-learnerName,email,courseTitle,completionDate,instructor,duration,certificateNo,expiryDate
-Alex Example,alex@example.com,Abrasive Wheels Training,2026-10-16,Trainer Name,Half day,,
-Jordan Example,jordan@example.com,Abrasive Wheels Training,2026-10-16,Trainer Name,Half day,,
+learnerName,email,employer,courseTitle,candidateCount,completionDate,duration,testDate,instructor,instructorRegNo,examiner,examinerRegNo,authorisedBy,certificateNo,expiryDate
+Alex Example,alex@example.com,Example Company,Experienced Operator Abrasive Wheels,2,2026-10-16,4hrs,2026-10-16,Chris Timson,1:26307,Chris Timson,1:26307,Matthew Burton,,
+Jordan Example,jordan@example.com,Example Company,Experienced Operator Abrasive Wheels,2,2026-10-16,4hrs,2026-10-16,Chris Timson,1:26307,Chris Timson,1:26307,Matthew Burton,,
