@@ -56,11 +56,12 @@ main{padding:30px 0 60px}.intro{margin-bottom:22px}.intro h2{font-size:30px;lett
 <h3>Included in the pack</h3><ul><li>Course plan and presentation outline</li><li>Quiz and learner resource outlines</li><li>Marketing copy and course promotion ideas</li><li>Certificate template</li><li>Launch and administration checklist</li></ul>
 <p>Use the tabs above to review each output. You can copy the pack as text, download it, or print the certificate preview.</p>
 </div>
-<div class="btn-row"><button class="btn" id="copy">Copy current output</button><button class="btn secondary" id="download">Download pack (.txt)</button><button class="btn secondary" id="print">Print current view</button></div>
+<div class="btn-row"><button class="btn" id="copy">Copy current output</button><button class="btn secondary" id="download">Download pack (.txt)</button><button class="btn secondary" id="pptx">Download editable PowerPoint (.pptx)</button><button class="btn secondary" id="document">Download editable document (.rtf)</button><button class="btn secondary" id="print">Print current view</button></div>
 <div class="status" id="status">No pack generated yet.</div>
 </section>
 </div>
 </main>
+<script src="pptxgen.bundle.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 let outputs={},current='overview',fullPack='';
@@ -97,6 +98,45 @@ $('builder').addEventListener('submit',e=>{e.preventDefault();generate()});
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{current=b.dataset.tab;render()}));
 $('copy').addEventListener('click',async()=>{let text=current==='certificate'?outputs.certificate:(outputs[current]||outputs.overview||'Generate a pack first.');try{await navigator.clipboard.writeText(text);$('status').textContent='Copied current output.'}catch(e){$('status').textContent='Clipboard unavailable. Select the output text and copy it manually.'}});
 $('download').addEventListener('click',()=>{if(!fullPack){$('status').textContent='Build a pack first.';return;}const blob=new Blob([fullPack],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='coursepilot-course-pack.txt';a.click();URL.revokeObjectURL(a.href);$('status').textContent='Downloaded starter pack text.'});
+$('pptx').addEventListener('click',async()=>{
+ if(!fullPack){$('status').textContent='Build a pack first, then download the PowerPoint.';return;}
+ if(typeof PptxGenJS==='undefined'){ $('status').textContent='PowerPoint library did not load. Check that pptxgen.bundle.js is in the same folder as studio.html.';return; }
+ const d=vals(), pptx=new PptxGenJS();
+ pptx.layout='LAYOUT_WIDE'; pptx.author='CoursePilot'; pptx.subject='Editable course presentation starter'; pptx.title=d.course; pptx.company=d.provider; pptx.lang='en-GB';
+ const navy='14243B', teal=(d.brand||'087F8C').replace('#','').toUpperCase(), ink='26364A', pale='F2F6FA';
+ pptx.theme={headFontFace:'Aptos Display',bodyFontFace:'Aptos',lang:'en-GB'};
+ function addSlide(title, bullets, notes, subtitle){
+   const sl=pptx.addSlide(); sl.background={color:'FFFFFF'};
+   sl.addShape(pptx.ShapeType.rect,{x:0,y:0,w:13.333,h:0.24,line:{color:teal,transparency:100},fill:{color:teal}});
+   sl.addText(title,{x:0.65,y:0.55,w:12.0,h:0.65,fontFace:'Aptos Display',fontSize:27,bold:true,color:navy,margin:0,breakLine:false,fit:'shrink'});
+   if(subtitle) sl.addText(subtitle,{x:0.68,y:1.25,w:11.8,h:0.42,fontSize:13,color:'607287',margin:0,fit:'shrink'});
+   const list=(bullets||[]).filter(Boolean);
+   if(list.length){ sl.addText(list.map(x=>({text:String(x),options:{bullet:{indent:18},hanging:4,breakLine:true}})),{x:0.85,y:1.9,w:11.7,h:4.7,fontSize:20,color:ink,paraSpaceAfterPt:13,breakLine:false,fit:'shrink',valign:'mid',margin:0.08}); }
+   sl.addText(d.provider+'  •  '+d.course,{x:0.65,y:7.12,w:11.8,h:0.18,fontSize:8,color:'738397',margin:0});
+   sl.addNotes(notes||'Trainer note: Adapt this slide to the confirmed learning outcomes. Verify all technical details and current requirements against authoritative sources before delivery.');
+   return sl;
+ }
+ // Cover slide
+ {const sl=pptx.addSlide();sl.background={color:navy};sl.addShape(pptx.ShapeType.rect,{x:0,y:0,w:0.22,h:7.5,line:{color:teal,transparency:100},fill:{color:teal}});sl.addText(d.course,{x:0.85,y:1.45,w:11.4,h:1.4,fontFace:'Aptos Display',fontSize:34,bold:true,color:'FFFFFF',margin:0.02,fit:'shrink'});sl.addText(d.provider,{x:0.88,y:3.0,w:10.8,h:0.55,fontSize:21,color:'CDE7EA',margin:0});sl.addText('Course presentation starter  |  '+d.duration,{x:0.88,y:3.75,w:10.8,h:0.45,fontSize:16,color:'FFFFFF',margin:0});sl.addText('Audience: '+d.audience,{x:0.88,y:4.35,w:10.8,h:0.4,fontSize:13,color:'D7E0E9',margin:0});sl.addNotes('Welcome learners. Introduce yourself and the provider. Confirm the session duration, housekeeping, learner needs and expectations. Explain that this is a starter presentation and must be reviewed by a competent trainer before delivery.');}
+ const obj=(d.objectives||'Confirm measurable learning outcomes with the trainer.').split(/\n|;/).map(x=>x.trim()).filter(Boolean);
+ addSlide('Aims and learning outcomes',obj.slice(0,6), 'Explain the purpose of the course. Review each outcome and invite learners to consider what they already know. Replace draft wording with measurable, subject-specific outcomes before delivery.');
+ addSlide('Why this subject matters',['Relevance to '+d.audience,'Where the knowledge or skill is used in practice','Expected standards and responsibilities','Questions learners want answered'],'Ask learners for examples from their own roles. Insert accurate, sector-specific examples and cite authoritative sources where appropriate.');
+ addSlide('Key concepts and terminology',['Introduce the core terms and definitions','Explain the process or principles step by step','Use a worked example or demonstration','Check understanding before moving on'],'Add verified definitions, diagrams and examples for the chosen subject. Do not use generic placeholders as technical instruction.');
+ addSlide('Practical example or scenario',['Set out a realistic workplace or learning scenario','Ask learners what they would do and why','Compare responses with the agreed standard','Summarise lessons learned'],'Use a scenario relevant to the audience. Ensure any safety-critical actions and answers are checked against current official guidance.');
+ addSlide('Guided activity',['Explain the task and expected result','Set time, resources and any safety boundaries','Allow learners to practise or discuss','Give feedback and correct misunderstandings'],'Explain the activity, observe participation, and provide supportive feedback. Adapt for accessibility and learner needs.');
+ addSlide('Common errors and good practice',['Identify likely misconceptions for this topic','Explain the consequence of each error','Show the correct approach','Point learners to approved reference material'],'This slide requires trainer input for the selected subject. Do not assume generic examples apply to every sector.');
+ addSlide('Knowledge check',['Ask learners to explain a key concept in their own words','Use a short scenario question','Ask what source or procedure they would consult','Review answers and address gaps'],'Use the separate quiz/assessment output to add verified questions and answers. Do not treat this placeholder as a validated assessment.');
+ addSlide('Key takeaways and next steps',['Revisit the learning outcomes','Summarise the main points','Explain any follow-up practice or assessment','Share approved sources and contact details'],'Ask learners which outcome they feel most confident about and what they need to practise further.');
+ addSlide('Questions and evaluation',['Questions and discussion','Learner feedback','Confirm next steps and support','Thank learners'],'Allow time for questions. Collect feedback in line with provider procedures. Confirm any certificate wording accurately reflects the learning delivered.');
+ try { await pptx.writeFile({fileName:(d.course||'coursepilot-course').replace(/[^a-z0-9-_]+/gi,'-').replace(/^-|-$/g,'')+'-CoursePilot.pptx'}); $('status').textContent='Editable PowerPoint downloaded. Review and complete subject-specific content before use.'; }
+ catch(err){ $('status').textContent='PowerPoint could not be created in this browser. Try again or use the document download.'; }
+});
+function rtfEscape(s){return String(s).replace(/\\/g,'\\\\').replace(/{/g,'\\{').replace(/}/g,'\\}').replace(/[^\x00-\x7F]/g,c=>{const code=c.charCodeAt(0);return "\\u"+(code>32767?code-65536:code)+'?';}).replace(/\r?\n/g,'\\par\n');}
+$('document').addEventListener('click',()=>{
+ if(!fullPack){$('status').textContent='Build a pack first, then download the document.';return;}
+ const rtf='{\\rtf1\\ansi\\deff0{\\fonttbl{\\f0 Aptos;}}\\viewkind4\\uc1\\pard\\f0\\fs22 '+rtfEscape('COURSEPILOT COURSE PACK\n\n'+fullPack)+'\\par}';
+ const blob=new Blob([rtf],{type:'application/rtf;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(vals().course||'coursepilot-course').replace(/[^a-z0-9-_]+/gi,'-')+'-CoursePilot.rtf';a.click();URL.revokeObjectURL(a.href);$('status').textContent='Editable RTF document downloaded. Open it in Word or another compatible word processor.';
+});
 $('print').addEventListener('click',()=>window.print());
 </script>
 </body></html>
