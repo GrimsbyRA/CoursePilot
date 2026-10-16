@@ -1,0 +1,29 @@
+TRAINISTY — LATEST WEBSITE UPLOAD BUNDLE
+
+WHAT IS IN THIS PACKAGE
+- GITHUB-ROOT/: the latest Trainisty website/app files. Upload the CONTENTS of this folder to the root of https://github.com/grimsbyra/CoursePilot on branch main.
+- SUPABASE-SETUP/: SQL migrations and an optional Edge Function source. The migrations have already been run in your Supabase project according to the screenshots. DO NOT run them again unless reviewing/fixing a specific issue; this package is supplied for reference/recovery.
+
+IMPORTANT ABOUT EXISTING FILES
+Your current GitHub repository also has payment-related files such as payment-config.js, payment-success.html, payment-cancelled.html, jszip.bundle.js and various README/test files. Those were not part of the Trainisty site source bundle available for this build. When uploading the contents of GITHUB-ROOT, GitHub's upload page will replace files with the same names and add new ones; it will NOT delete other files unless you manually delete them. Keep those existing payment-related files and CNAME (if present). Do not select/delete the entire repository.
+
+SUPABASE PROJECT CONFIG
+site/supabase-config.js is configured with the project URL and the public publishable key provided by the owner. A public publishable key is intended for browser use; never put a service-role/secret key in the website.
+
+UPLOAD STEPS (PHONE)
+1. Extract this ZIP.
+2. Open GITHUB-ROOT and select its CONTENTS, not the folder itself.
+3. In GitHub, open grimsbyra/CoursePilot on main, choose Add file > Upload files.
+4. Upload all files in GITHUB-ROOT. Scroll down, enter commit message: Update Trainisty website and Supabase connection, and commit to main.
+5. Wait for GitHub Pages to publish, then open https://grimsbyra.github.io/CoursePilot/ and https://grimsbyra.github.io/CoursePilot/login.html.
+6. In Supabase Authentication > URL Configuration, set Site URL to https://grimsbyra.github.io/CoursePilot/ and add allowed redirects:
+   https://grimsbyra.github.io/CoursePilot/
+   https://grimsbyra.github.io/CoursePilot/login.html
+   https://grimsbyra.github.io/CoursePilot/app.html
+7. Test with fictional data only: create a test provider account, confirm email if requested, sign in, add a fictional learner, refresh, sign in on another device/browser, then test with a second provider account to confirm isolation.
+
+STATUS / LIMITATIONS
+- The two database migrations were run successfully in Supabase based on the user's screenshots, and all five tables were visible in Table Editor.
+- This package has not been published to GitHub by ChatGPT and no live end-to-end browser test has been completed.
+- Learner cloud sync is implemented in app.html against learner_records; certificate manager has cloud metadata integration against certificates. Browser PDF generation remains local. Private PDF storage, automated email delivery, payments/subscriptions and full Course Studio cloud persistence are not fully operational.
+- Do not enter real learner data until sign-in, RLS isolation, backup/retention, privacy notices and UK data protection requirements have been checked.
