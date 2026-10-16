@@ -1,53 +1,28 @@
-# CoursePilot Certificate Manager — deployment bundle
+COURSEPILOT — COMPLETE WEBSITE UPDATE BUNDLE
 
-## Included
-- `site/certificate-manager.html`: current browser-only certificate-generation prototype.
-- `site/aw-certificate-template-blank.pdf`: blank TIS Abrasive Wheels certificate template.
-- `site/sample-learners.csv`: sample class list.
-- `site/ADD-TO-NAVIGATION.html.txt`: snippet to add a navigation link to the existing website.
-- `supabase/migrations/001_coursepilot_certificate_manager.sql`: starter database schema, row-level security policies and private storage bucket.
-- `supabase/functions/send-certificate-email/index.ts`: authenticated email-function starter using Resend and short-lived private download links.
-- `supabase/ENVIRONMENT-VARIABLES.example.txt`: environment variable names only; no secrets included.
+This bundle integrates the Certificate Builder into the supplied CoursePilot homepage and Studio.
 
-## Important: this is not yet a fully operational commercial SaaS
-The current `certificate-manager.html` is still a browser-only prototype. It stores templates/register data in localStorage and generates PDFs in the browser. It does NOT yet connect to the Supabase database, require customer login, save generated PDFs to private storage, or invoke the email function. Do not advertise or use it for real multi-provider customer accounts until that integration is implemented and tested.
+FILES TO PUBLISH
+- site/index.html (updated homepage with navigation and a tools directory)
+- site/studio.html (existing Studio with links to Home and Certificate Builder)
+- site/certificate-manager.html (browser-based Certificate Builder)
+- site/aw-certificate-template-blank.pdf (blank sample certificate PDF)
+- site/sample-learners.csv (CSV import example)
+- site/coursepilot-logo.png (simple placeholder brand icon; replace with your official logo if available)
+- site/pricing.html, site/privacy.html and site/terms.html (starter support pages; review and replace with your final business/legal wording)
 
-The SQL and Edge Function are production-oriented starter components, not proof that a secure deployment is complete. They require review and end-to-end testing.
+DEPLOY TO GITHUB PAGES
+1. Back up the existing repository first.
+2. Copy the contents of the site/ folder into the root of the existing GitHub Pages branch. This bundle includes starter pricing/privacy/terms pages; if your repository already has final versions, keep those instead of overwriting them.
+3. Replace index.html and studio.html with the updated versions in this bundle. Keep all other existing files and folders; do not delete assets, configuration, or other pages. Add the new certificate-manager.html, PDF and CSV files.
+4. Commit and push to the branch used by GitHub Pages.
+5. After publishing, test: /CoursePilot/, /CoursePilot/studio.html and /CoursePilot/certificate-manager.html.
 
-## Static website deployment
-1. Back up the existing GitHub repository/branch.
-2. Copy the files inside `site/` into the root of the existing GitHub Pages source branch. Do not replace the existing `index.html`, `studio.html`, assets or configuration files.
-3. Add the navigation link snippet to the existing site navigation.
-4. Commit and push changes to the existing repository.
-5. Test `https://grimsbyra.github.io/CoursePilot/certificate-manager.html`.
+IMPORTANT LIMITATIONS
+- This is prepared from the index.html and studio.html files supplied in this conversation; any newer live changes not included in those uploads will not be reflected.
+- Certificate Builder is a browser-only prototype. Templates/register data use browser storage. Cloud accounts, secure shared storage, subscription billing and automatic email delivery are not connected. Do not use real learner data for commercial multi-customer operation until backend integration, privacy/security review and end-to-end tests are completed.
+- External libraries may need internet access. The Studio loads JSZip and PptxGenJS from public CDNs; certificate generation also uses public CDN libraries. The included logo is a simple placeholder, not an original brand asset.
+- This bundle has not been deployed to GitHub and the live URL has not been verified after deployment.
 
-GitHub Pages can serve the front-end files but cannot itself run a private database, securely protect customer data, or send email.
-
-## Backend setup (Supabase + Resend)
-1. Create a Supabase project and enable email/password authentication.
-2. Review and run `001_coursepilot_certificate_manager.sql` in the Supabase SQL Editor.
-3. Configure the app to use Supabase Auth and database tables. This integration is NOT present in the included prototype and must be implemented before live customer use.
-4. Store generated PDFs and uploaded template PDFs in the private `coursepilot-private` bucket under paths starting with the authenticated user's UUID, for example `<user-uuid>/certificates/<filename>.pdf`.
-5. Configure and deploy the Edge Function. Set secrets using Supabase CLI/secrets tooling, never in public HTML:
-   - `RESEND_API_KEY`
-   - `CERTIFICATE_FROM_EMAIL`
-   - `ALLOWED_ORIGIN`
-   Supabase supplies `SUPABASE_URL` and `SUPABASE_ANON_KEY` to Edge Functions in its environment.
-6. Verify the sender domain with Resend.
-7. Wire the front-end to upload the PDF, insert the certificate row and call `send-certificate-email`. The function expects the certificate row to exist and its `pdf_storage_path` to match.
-8. Add subscription billing only after account isolation and certificate creation are tested. Stripe checkout/webhooks and subscription enforcement are not included.
-
-## Required acceptance tests before launch
-- Two separate provider accounts cannot read or modify each other's templates, learners, certificates or files.
-- Signed-out visitors cannot read private records/files.
-- Generate PDFs for 1, 10 and 30 learners; verify all fields and long names against the original certificate.
-- Certificate numbers are unique per provider and duplicate numbers are rejected.
-- Email only sends a certificate belonging to the authenticated provider; links expire.
-- Verify invalid email, failed email provider, expired session, malformed CSV and missing template handling.
-- Backups, deletion/retention policy, privacy notice, terms, support contact and incident process are ready.
-- Review the schema, RLS and function with a competent developer/security reviewer before storing personal data.
-
-## Security notes
-- Never expose a Supabase `service_role` key in HTML/JavaScript.
-- Treat learner names and emails as personal data; use real learner data only after the production backend and privacy controls are live.
-- The current prototype's browser storage is not synced between devices and may be lost when browser data is cleared.
+BACKEND STARTER FILES
+The supabase/ files are planning/starter materials only. They are not connected to the current front-end and are not ready to be treated as a complete production backend.
