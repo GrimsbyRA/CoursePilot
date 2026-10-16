@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 100" role="img" aria-labelledby="title desc">
+<title id="title">Trainisty</title><desc id="desc">Trainisty training software logo in midnight blue and electric lime</desc>
+<rect width="520" height="100" rx="18" fill="#0B1B33"/>
+<g transform="translate(18 15)"><path d="M6 5 H62 C61 22 48 34 31 34 H6 Z" fill="#C4FF3D"/><path d="M20 42 C20 28 31 19 46 19 H57 C55 34 45 44 34 49 V69 H20 Z" fill="#14B8A6"/></g>
+<text x="104" y="66" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="54" font-weight="800" letter-spacing="-2" fill="#F8FAFC">Train</text><text x="247" y="66" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="54" font-weight="800" letter-spacing="-2" fill="#C4FF3D">isty</text>
+</svg>

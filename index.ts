@@ -66,7 +66,7 @@ Deno.serve(async (req) => {
     });
 
     const { data: signed, error: signedError } = await supabase.storage
-      .from("coursepilot-private")
+      .from("trainisty-private")
       .createSignedUrl(storagePath, 60 * 60);
     if (signedError || !signed?.signedUrl) throw new Error("Could not create secure download link");
 

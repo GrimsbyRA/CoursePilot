@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CoursePilot Certificate Manager — Prototype</title>
+<title>Trainisty Certificate Manager — Prototype</title>
 <style>
 :root{--navy:#142c46;--teal:#176b55;--ink:#182230;--muted:#667085;--line:#dce3ea;--bg:#f4f7fa;--white:#fff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
@@ -36,8 +36,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </style>
 </head>
 <body>
-<nav style="padding:12px 18px;background:#10243a;color:#fff;display:flex;gap:16px;flex-wrap:wrap;font:700 14px system-ui"><a style="color:#fff" href="index.html">CoursePilot Home</a><a style="color:#8ee2dc" href="studio.html">Course Studio</a></nav>
-<header><div class="brand">CoursePilot <small>CERTIFICATE MANAGER</small></div><span class="pill">Prototype v0.1</span></header>
+<nav style="padding:12px 18px;background:#0B1B33;color:#fff;display:flex;gap:16px;flex-wrap:wrap;font:700 14px system-ui"><a style="color:#fff" href="index.html">Trainisty Home</a><a style="color:#8ee2dc" href="studio.html">Course Studio</a></nav>
+<header><div class="brand">Trainisty <small>CERTIFICATE MANAGER</small></div><span class="pill">Prototype v0.1</span></header>
 <main>
 <section class="intro"><div><h1>Certificate Manager</h1><p class="sub">Use your own PDF certificate template, map the changing fields once, then create certificates individually or for a whole class.</p></div></section>
 <div class="notice"><b>Prototype notice:</b> this version runs in your browser and stores its draft register locally on this device. Do not use it for sensitive learner records or as the production service for paying customers. Email opens your email app; it does not attach files automatically.</div>
@@ -118,7 +118,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </div>
 </section>
 </main>
-<footer>CoursePilot Certificate Manager prototype · Browser-only demo · Not yet configured for secure multi-provider production use</footer>
+<footer>Trainisty Certificate Manager prototype · Browser-only demo · Not yet configured for secure multi-provider production use</footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -294,7 +294,7 @@ $('addLearner').addEventListener('click',()=>{learners.push(newLearner());render
 $('clearLearners').addEventListener('click',()=>{if(confirm('Clear all learners from the current batch?')){learners=[];renderLearners()}});
 function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'&&quoted&&n==='"'){cell+='"';i++}else if(c==='"'){quoted=!quoted}else if(c===','&&!quoted){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))rows.push(row);row=[];cell=''}else cell+=c}row.push(cell);if(row.some(v=>v.trim()))rows.push(row);return rows}
 $('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const rows=parseCsv(await f.text());if(rows.length<2)throw new Error('CSV needs a header row and at least one learner row.');const headers=rows[0].map(s=>s.trim().replace(/^\uFEFF/,''));const allowed=['learnerName','email','employer','courseTitle','candidateCount','completionDate','duration','testDate','instructor','instructorRegNo','examiner','examinerRegNo','authorisedBy','certificateNo','expiryDate'];const map={};headers.forEach((h,i)=>{const normalized=allowed.find(a=>a.toLowerCase()===h.toLowerCase().replace(/[\s_-]/g,''))||allowed.find(a=>a.toLowerCase()===h.toLowerCase());if(normalized)map[normalized]=i});if(map.learnerName===undefined)throw new Error('Could not find a learnerName column. Use the sample CSV headings.');const imported=rows.slice(1).map(r=>{const l=newLearner();allowed.forEach(k=>{if(map[k]!==undefined)l[k]=(r[map[k]]||'').trim()});return l}).filter(l=>l.learnerName);if(!imported.length)throw new Error('No learner names found.');learners=learners.concat(imported);renderLearners();$('templateStatus').textContent=`Imported ${imported.length} learners from ${f.name}.`;setTab('learners');}catch(err){alert('CSV import failed: '+err.message)}finally{e.target.value=''}});
-$('downloadCsvTemplate').addEventListener('click',()=>downloadBlob('coursepilot-learners-sample.csv','text/csv','learnerName,email,employer,courseTitle,candidateCount,completionDate,duration,testDate,instructor,instructorRegNo,examiner,examinerRegNo,authorisedBy,certificateNo,expiryDate\nAlex Example,alex@example.com,Example Company,Experienced Operator Abrasive Wheels,2,2026-10-16,4hrs,2026-10-16,Chris Timson,1:26307,Chris Timson,1:26307,Matthew Burton,,\nJordan Example,jordan@example.com,Example Company,Experienced Operator Abrasive Wheels,2,2026-10-16,4hrs,2026-10-16,Chris Timson,1:26307,Chris Timson,1:26307,Matthew Burton,,\n'));
+$('downloadCsvTemplate').addEventListener('click',()=>downloadBlob('trainisty-learners-sample.csv','text/csv','learnerName,email,employer,courseTitle,candidateCount,completionDate,duration,testDate,instructor,instructorRegNo,examiner,examinerRegNo,authorisedBy,certificateNo,expiryDate\nAlex Example,alex@example.com,Example Company,Experienced Operator Abrasive Wheels,2,2026-10-16,4hrs,2026-10-16,Chris Timson,1:26307,Chris Timson,1:26307,Matthew Burton,,\nJordan Example,jordan@example.com,Example Company,Experienced Operator Abrasive Wheels,2,2026-10-16,4hrs,2026-10-16,Chris Timson,1:26307,Chris Timson,1:26307,Matthew Burton,,\n'));
 function updateSummary(){const valid=learners.filter(l=>l.learnerName.trim()).length;const mapped=fieldDefs.filter(([k])=>positions[k]).length;$('generationSummary').textContent=`Template: ${$('courseName').value||'not named'} · Learners: ${valid} valid of ${learners.length} · Fields positioned: ${mapped} of ${fieldDefs.length}. ${!templateBytes?'Load a PDF template first.':valid?'Ready to generate.':'Add at least one learner with a name.'}`;$('generateAll').disabled=!templateBytes||valid===0;$('generateSeparate').disabled=!templateBytes||valid===0;}
 ['courseName','defaultCourse','defaultInstructor'].forEach(id=>$(id).addEventListener('input',updateSummary));
 async function makePdf(learner){if(!templateBytes)throw new Error('No PDF template loaded.');const doc=await PDFLib.PDFDocument.load(templateBytes),page=doc.getPages()[0],{width,height}=page.getSize(),font=await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);const l={...learner};l.courseTitle=l.courseTitle||$('defaultCourse').value||$('courseName').value;l.instructor=l.instructor||$('defaultInstructor').value;l.certificateNo=l.certificateNo||`CP-${(l.completionDate||today()).replace(/-/g,'')}-${Math.random().toString(36).slice(2,7).toUpperCase()}`;fieldDefs.forEach(([key])=>{const p=positions[key];if(p)drawText(page,l[key],p,width,height,font)});return {bytes:await doc.save(),learner:l};}
@@ -303,7 +303,7 @@ $('generationStatus').textContent='Generating certificates…';$('generateAll').
 try{const zip=all?new JSZip():null,generated=[];const list=all?batch:batch.slice(0,1);
 for(let i=0;i<list.length;i++){const result=await makePdf(list[i]);const filename=`${slug(result.learner.learnerName)}-${slug(result.learner.courseTitle)}-${slug(result.learner.certificateNo)}.pdf`;if(zip)zip.file(filename,result.bytes);else downloadBlob(filename,'application/pdf',result.bytes);generated.push({filename,result});}
 const issuedAt=new Date().toISOString();generated.forEach(({filename,result})=>register.unshift({id:result.learner.certificateNo,learnerName:result.learner.learnerName,email:result.learner.email,courseTitle:result.learner.courseTitle,completionDate:result.learner.completionDate,issuedAt,status:'Generated in browser',filename,provider:'Local prototype'}));saveLocal();
-if(zip){const blob=await zip.generateAsync({type:'blob'});downloadBlob(`CoursePilot-certificates-${today()}.zip`,'application/zip',blob);}
+if(zip){const blob=await zip.generateAsync({type:'blob'});downloadBlob(`Trainisty-certificates-${today()}.zip`,'application/zip',blob);}
 $('generationStatus').textContent=`Generated ${generated.length} PDF certificate(s). ${all?'A ZIP file has been downloaded.':'The first PDF has been downloaded.'} Check the certificate register.`;
 setTab('register');
 }catch(e){console.error(e);$('generationStatus').textContent='Generation failed: '+e.message;alert('Certificate generation failed: '+e.message)}
@@ -313,7 +313,7 @@ $('generateAll').addEventListener('click',()=>generateBatch(true));$('generateSe
 function downloadBlob(name,type,data){const blob=data instanceof Blob?data:new Blob([data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
 function renderRegister(){const tbody=$('registerRows'),q=($('registerSearch')?.value||'').toLowerCase();if(!tbody)return;const items=register.filter(r=>[r.id,r.learnerName,r.courseTitle,r.email].some(v=>String(v||'').toLowerCase().includes(q)));tbody.innerHTML='';if(!items.length){tbody.innerHTML='<tr><td colspan="6" class="empty">No matching certificates in this browser.</td></tr>';return}items.forEach(r=>{const tr=document.createElement('tr');[r.id,r.learnerName,r.courseTitle,r.issuedAt?new Date(r.issuedAt).toLocaleDateString():'',r.email||'—',r.status||'Generated'].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});tbody.appendChild(tr)});}
 $('registerSearch').addEventListener('input',renderRegister);
-$('exportRegister').addEventListener('click',()=>{const cols=['id','learnerName','email','employer','courseTitle','candidateCount','completionDate','duration','testDate','instructor','instructorRegNo','examiner','examinerRegNo','authorisedBy','issuedAt','status','filename'];const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';downloadBlob('coursepilot-certificate-register.csv','text/csv',[cols.join(','),...register.map(r=>cols.map(c=>esc(r[c])).join(','))].join('\n'));});
+$('exportRegister').addEventListener('click',()=>{const cols=['id','learnerName','email','employer','courseTitle','candidateCount','completionDate','duration','testDate','instructor','instructorRegNo','examiner','examinerRegNo','authorisedBy','issuedAt','status','filename'];const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';downloadBlob('trainisty-certificate-register.csv','text/csv',[cols.join(','),...register.map(r=>cols.map(c=>esc(r[c])).join(','))].join('\n'));});
 $('clearRegister').addEventListener('click',()=>{if(confirm('Permanently clear the certificate register stored in this browser?')){register=[];saveLocal()}});
 renderPositionList();renderLearners();renderStats();renderSavedTemplates();renderRegister();updateSummary();
 })();

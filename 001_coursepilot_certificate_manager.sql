@@ -1,4 +1,4 @@
--- CoursePilot Certificate Manager: Supabase schema starter
+-- Trainisty Certificate Manager: Supabase schema starter
 -- Run in Supabase SQL Editor on a NEW project after reviewing this file.
 -- This sets up tenant-scoped tables and storage metadata; it does not by itself
 -- connect the current browser-only prototype to Supabase.
@@ -80,31 +80,31 @@ create policy "provider manages own certificates" on public.certificates
 
 -- Private storage bucket for certificate PDFs and uploaded templates.
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('coursepilot-private', 'coursepilot-private', false, 15728640, array['application/pdf'])
+values ('trainisty-private', 'trainisty-private', false, 15728640, array['application/pdf'])
 on conflict (id) do nothing;
 
 -- Expected storage object path format: <auth-user-uuid>/<folder>/<filename>
 create policy "provider reads own private certificate files" on storage.objects
  for select to authenticated using (
-   bucket_id = 'coursepilot-private'
+   bucket_id = 'trainisty-private'
    and (storage.foldername(name))[1] = (select auth.uid())::text
  );
 create policy "provider uploads own private certificate files" on storage.objects
  for insert to authenticated with check (
-   bucket_id = 'coursepilot-private'
+   bucket_id = 'trainisty-private'
    and (storage.foldername(name))[1] = (select auth.uid())::text
  );
 create policy "provider updates own private certificate files" on storage.objects
  for update to authenticated using (
-   bucket_id = 'coursepilot-private'
+   bucket_id = 'trainisty-private'
    and (storage.foldername(name))[1] = (select auth.uid())::text
  ) with check (
-   bucket_id = 'coursepilot-private'
+   bucket_id = 'trainisty-private'
    and (storage.foldername(name))[1] = (select auth.uid())::text
  );
 create policy "provider deletes own private certificate files" on storage.objects
  for delete to authenticated using (
-   bucket_id = 'coursepilot-private'
+   bucket_id = 'trainisty-private'
    and (storage.foldername(name))[1] = (select auth.uid())::text
  );
 
