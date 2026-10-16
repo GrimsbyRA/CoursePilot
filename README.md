@@ -1,29 +1,30 @@
-# CoursePilot website package — prototype v2
+# CoursePilot website package — v3 starter
 
-Upload the contents of this folder (not the ZIP itself) into the root of the GitHub repository `GrimsbyRA/CoursePilot`, replacing the existing `index.html`, `studio.html`, and `coursepilot-logo.png`, and adding `pptxgen.bundle.js`.
+Upload the website files from this folder to the root of the GitHub repository `GrimsbyRA/CoursePilot`.
 
-Files:
-- `index.html` — public landing page
+## Website files
+- `index.html` — public landing page and local course brief builder
 - `studio.html` — course pack builder
-- `coursepilot-logo.png` — logo used on the site
-- `pptxgen.bundle.js` — local PowerPoint generation library required for editable `.pptx` downloads
+- `pptxgen.bundle.js` — required local library for PowerPoint export
+- `coursepilot-logo.png` — logo
+- `privacy.html` — draft privacy notice (complete placeholders and review before launch)
+- `terms.html` — draft terms of use (complete placeholders and review before launch)
 
-After GitHub Pages deploys, visit:
-- Website: https://grimsbyra.github.io/CoursePilot/
-- Studio: https://grimsbyra.github.io/CoursePilot/studio.html
+`SETUP_AND_LAUNCH.md` contains mobile deployment steps, functional tests, limitations and the remaining owner-only actions.
 
-## New in v2
-- Generates an editable PowerPoint `.pptx` in the browser, including a title slide, session outline slides, and instructor notes.
-- Downloads a Word-compatible editable `.rtf` document containing the selected starter pack outputs.
-- Keeps the existing text pack download, copy and print features.
-- The PowerPoint library is included locally, so generation does not depend on loading that library from a third-party CDN.
+## Studio capabilities
+- Editable `.pptx` starter deck with instructor notes
+- Editable Word-compatible `.rtf` course pack
+- Text pack download, copy and print
+- Starter quiz questions for selected topics
+- Official reference links for selected topics and a source-review checklist
+- Certificate preview and marketing drafts
 
-## Important limitations
-This remains a static front-end prototype. Course content is template-based and not independently researched or verified. The generated PowerPoint is an editable starter presentation, not a finished or validated course. Trainer must add and verify subject-specific content, examples, assessments, source references, accessibility provisions and current legal/technical requirements before delivery. The RTF document is editable in Word-compatible software. No customer accounts, online project saving, payments, email sending, publishing integrations or server-side generation are included. Learner information entered in the form stays in the browser and is not sent to a server by this prototype.
+## Important
+This remains a static front-end prototype. It does not live-verify current legislation or guarantee technical accuracy, legal compliance, accreditation or assessment validity. The generated presentation is a starter deck, not a finished course. No account system, online saving, lead delivery, email sending, payments, subscription management or publishing integrations are connected. The landing-page request form does not submit information to the operator. Do not advertise it as a working customer lead form until a real submission route is configured and tested.
 
-## Mobile upload steps
-1. Download and extract `coursepilot_product_prototype_v2.zip` on your phone.
-2. Open the GitHub repository `https://github.com/GrimsbyRA/CoursePilot`.
-3. Upload/replace the four files listed above at the repository root.
-4. Commit the changes and wait a minute or two for Pages to update.
-5. Open the Studio link and generate a pack. Build the pack first, then use the new PowerPoint or document download button.
+## URLs after publishing
+- https://grimsbyra.github.io/CoursePilot/
+- https://grimsbyra.github.io/CoursePilot/studio.html
+- https://grimsbyra.github.io/CoursePilot/privacy.html
+- https://grimsbyra.github.io/CoursePilot/terms.html
