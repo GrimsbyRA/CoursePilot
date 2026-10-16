@@ -1,0 +1,125 @@
+COURSEPILOT DURATION & COURSE TEST REPORT
+Generated: 2026-10-16
+
+SCOPE
+Static test matrix: 12 course topics x 9 durations = 108 combinations. The matrix checks the duration-to-slide target calculation and confirms the Studio contains schedule generation for the course plan and PowerPoint. Inline JavaScript syntax checks passed. This is not a full browser end-to-end test; actual downloads must still be tested on the deployed GitHub Pages site.
+
+DURATION ASSUMPTIONS
+Hourly courses use the entered number of contact hours. Multi-day courses are planned as 7 contact hours per day, before breaks/lunch. Slide targets are estimates and capped at 100 slides; course quality and practical assessment take priority over slide count.
+
+MATRIX
+Course | Duration | Target slide estimate | Schedule
+First Aid at Work | 1 hour | 16 | Timed session schedule
+First Aid at Work | 2 hours | 24 | Timed session schedule
+First Aid at Work | 3 hours | 33 | Timed session schedule
+First Aid at Work | 4 hours | 41 | Timed session schedule
+First Aid at Work | 7 hours | 67 | Timed session schedule
+First Aid at Work | 2 days | 100 | Multi-day schedule
+First Aid at Work | 3 days | 100 | Multi-day schedule
+First Aid at Work | 4 days | 100 | Multi-day schedule
+First Aid at Work | 5 days | 100 | Multi-day schedule
+Emergency First Aid | 1 hour | 16 | Timed session schedule
+Emergency First Aid | 2 hours | 24 | Timed session schedule
+Emergency First Aid | 3 hours | 33 | Timed session schedule
+Emergency First Aid | 4 hours | 41 | Timed session schedule
+Emergency First Aid | 7 hours | 67 | Timed session schedule
+Emergency First Aid | 2 days | 100 | Multi-day schedule
+Emergency First Aid | 3 days | 100 | Multi-day schedule
+Emergency First Aid | 4 days | 100 | Multi-day schedule
+Emergency First Aid | 5 days | 100 | Multi-day schedule
+Paediatric First Aid | 1 hour | 16 | Timed session schedule
+Paediatric First Aid | 2 hours | 24 | Timed session schedule
+Paediatric First Aid | 3 hours | 33 | Timed session schedule
+Paediatric First Aid | 4 hours | 41 | Timed session schedule
+Paediatric First Aid | 7 hours | 67 | Timed session schedule
+Paediatric First Aid | 2 days | 100 | Multi-day schedule
+Paediatric First Aid | 3 days | 100 | Multi-day schedule
+Paediatric First Aid | 4 days | 100 | Multi-day schedule
+Paediatric First Aid | 5 days | 100 | Multi-day schedule
+Manual Handling | 1 hour | 16 | Timed session schedule
+Manual Handling | 2 hours | 24 | Timed session schedule
+Manual Handling | 3 hours | 33 | Timed session schedule
+Manual Handling | 4 hours | 41 | Timed session schedule
+Manual Handling | 7 hours | 67 | Timed session schedule
+Manual Handling | 2 days | 100 | Multi-day schedule
+Manual Handling | 3 days | 100 | Multi-day schedule
+Manual Handling | 4 days | 100 | Multi-day schedule
+Manual Handling | 5 days | 100 | Multi-day schedule
+Abrasive Wheels | 1 hour | 16 | Timed session schedule
+Abrasive Wheels | 2 hours | 24 | Timed session schedule
+Abrasive Wheels | 3 hours | 33 | Timed session schedule
+Abrasive Wheels | 4 hours | 41 | Timed session schedule
+Abrasive Wheels | 7 hours | 67 | Timed session schedule
+Abrasive Wheels | 2 days | 100 | Multi-day schedule
+Abrasive Wheels | 3 days | 100 | Multi-day schedule
+Abrasive Wheels | 4 days | 100 | Multi-day schedule
+Abrasive Wheels | 5 days | 100 | Multi-day schedule
+Working at Height | 1 hour | 16 | Timed session schedule
+Working at Height | 2 hours | 24 | Timed session schedule
+Working at Height | 3 hours | 33 | Timed session schedule
+Working at Height | 4 hours | 41 | Timed session schedule
+Working at Height | 7 hours | 67 | Timed session schedule
+Working at Height | 2 days | 100 | Multi-day schedule
+Working at Height | 3 days | 100 | Multi-day schedule
+Working at Height | 4 days | 100 | Multi-day schedule
+Working at Height | 5 days | 100 | Multi-day schedule
+COSHH | 1 hour | 16 | Timed session schedule
+COSHH | 2 hours | 24 | Timed session schedule
+COSHH | 3 hours | 33 | Timed session schedule
+COSHH | 4 hours | 41 | Timed session schedule
+COSHH | 7 hours | 67 | Timed session schedule
+COSHH | 2 days | 100 | Multi-day schedule
+COSHH | 3 days | 100 | Multi-day schedule
+COSHH | 4 days | 100 | Multi-day schedule
+COSHH | 5 days | 100 | Multi-day schedule
+Food Hygiene and Allergens | 1 hour | 16 | Timed session schedule
+Food Hygiene and Allergens | 2 hours | 24 | Timed session schedule
+Food Hygiene and Allergens | 3 hours | 33 | Timed session schedule
+Food Hygiene and Allergens | 4 hours | 41 | Timed session schedule
+Food Hygiene and Allergens | 7 hours | 67 | Timed session schedule
+Food Hygiene and Allergens | 2 days | 100 | Multi-day schedule
+Food Hygiene and Allergens | 3 days | 100 | Multi-day schedule
+Food Hygiene and Allergens | 4 days | 100 | Multi-day schedule
+Food Hygiene and Allergens | 5 days | 100 | Multi-day schedule
+Forklift Truck Training | 1 hour | 16 | Timed session schedule
+Forklift Truck Training | 2 hours | 24 | Timed session schedule
+Forklift Truck Training | 3 hours | 33 | Timed session schedule
+Forklift Truck Training | 4 hours | 41 | Timed session schedule
+Forklift Truck Training | 7 hours | 67 | Timed session schedule
+Forklift Truck Training | 2 days | 100 | Multi-day schedule
+Forklift Truck Training | 3 days | 100 | Multi-day schedule
+Forklift Truck Training | 4 days | 100 | Multi-day schedule
+Forklift Truck Training | 5 days | 100 | Multi-day schedule
+Fire Safety | 1 hour | 16 | Timed session schedule
+Fire Safety | 2 hours | 24 | Timed session schedule
+Fire Safety | 3 hours | 33 | Timed session schedule
+Fire Safety | 4 hours | 41 | Timed session schedule
+Fire Safety | 7 hours | 67 | Timed session schedule
+Fire Safety | 2 days | 100 | Multi-day schedule
+Fire Safety | 3 days | 100 | Multi-day schedule
+Fire Safety | 4 days | 100 | Multi-day schedule
+Fire Safety | 5 days | 100 | Multi-day schedule
+Driver CPC | 1 hour | 16 | Timed session schedule
+Driver CPC | 2 hours | 24 | Timed session schedule
+Driver CPC | 3 hours | 33 | Timed session schedule
+Driver CPC | 4 hours | 41 | Timed session schedule
+Driver CPC | 7 hours | 67 | Timed session schedule
+Driver CPC | 2 days | 100 | Multi-day schedule
+Driver CPC | 3 days | 100 | Multi-day schedule
+Driver CPC | 4 days | 100 | Multi-day schedule
+Driver CPC | 5 days | 100 | Multi-day schedule
+Safeguarding | 1 hour | 16 | Timed session schedule
+Safeguarding | 2 hours | 24 | Timed session schedule
+Safeguarding | 3 hours | 33 | Timed session schedule
+Safeguarding | 4 hours | 41 | Timed session schedule
+Safeguarding | 7 hours | 67 | Timed session schedule
+Safeguarding | 2 days | 100 | Multi-day schedule
+Safeguarding | 3 days | 100 | Multi-day schedule
+Safeguarding | 4 days | 100 | Multi-day schedule
+Safeguarding | 5 days | 100 | Multi-day schedule
+
+REVIEW NOTES
+- The generated timetable is a draft planning aid, not a prescribed duration or accreditation claim. Confirm requirements with the relevant awarding body, regulator, employer or course specification.
+- Safety-critical subjects require competent subject-matter review and current official sources before delivery.
+- Browser tests still required: download PPTX, open in PowerPoint/LibreOffice, confirm speaker notes, check layout/overflow, export RTF, certificate HTML/print-to-PDF, and verify every navigation link on mobile and desktop.
+- For 2–5 day courses, check each day builds on prior learning and includes practice, review and appropriate assessment rather than duplicated slides.

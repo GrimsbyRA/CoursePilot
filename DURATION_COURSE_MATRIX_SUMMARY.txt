@@ -1,0 +1,3 @@
+Matrix size: 171 combinations (19 course titles x 9 durations).
+All combinations passed arithmetic allocation checks: total contact minutes reconcile and the theory/practical allocation is within rounding tolerance of 20% / 80%.
+This tests schedule allocation logic only; it does not claim all content or browser exports have been end-to-end validated.

@@ -1,0 +1,172 @@
+course,duration,contact_minutes,days,theory_minutes,practical_minutes,theory_pct,practical_pct,result
+Manual Handling Awareness,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Manual Handling Awareness,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Manual Handling Awareness,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Manual Handling Awareness,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Manual Handling Awareness,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Manual Handling Awareness,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Manual Handling Awareness,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Manual Handling Awareness,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Manual Handling Awareness,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Fire Safety Awareness,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Fire Safety Awareness,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Fire Safety Awareness,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Fire Safety Awareness,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Fire Safety Awareness,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Fire Safety Awareness,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Fire Safety Awareness,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Fire Safety Awareness,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Fire Safety Awareness,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+COSHH Awareness,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+COSHH Awareness,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+COSHH Awareness,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+COSHH Awareness,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+COSHH Awareness,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+COSHH Awareness,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+COSHH Awareness,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+COSHH Awareness,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+COSHH Awareness,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Working at Height,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Working at Height,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Working at Height,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Working at Height,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Working at Height,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Working at Height,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Working at Height,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Working at Height,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Working at Height,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Risk Assessment,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Risk Assessment,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Risk Assessment,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Risk Assessment,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Risk Assessment,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Risk Assessment,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Risk Assessment,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Risk Assessment,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Risk Assessment,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+First Aid Awareness,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+First Aid Awareness,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+First Aid Awareness,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+First Aid Awareness,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+First Aid Awareness,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+First Aid Awareness,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+First Aid Awareness,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+First Aid Awareness,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+First Aid Awareness,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Safeguarding Awareness,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Safeguarding Awareness,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Safeguarding Awareness,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Safeguarding Awareness,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Safeguarding Awareness,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Safeguarding Awareness,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Safeguarding Awareness,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Safeguarding Awareness,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Safeguarding Awareness,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Equality, Diversity & Inclusion,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Equality, Diversity & Inclusion,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Equality, Diversity & Inclusion,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Equality, Diversity & Inclusion,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Equality, Diversity & Inclusion,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Equality, Diversity & Inclusion,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Equality, Diversity & Inclusion,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Equality, Diversity & Inclusion,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Equality, Diversity & Inclusion,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Food Hygiene,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Food Hygiene,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Food Hygiene,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Food Hygiene,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Food Hygiene,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Food Hygiene,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Food Hygiene,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Food Hygiene,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Food Hygiene,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Allergen Awareness,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Allergen Awareness,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Allergen Awareness,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Allergen Awareness,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Allergen Awareness,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Allergen Awareness,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Allergen Awareness,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Allergen Awareness,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Allergen Awareness,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Customer Service,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Customer Service,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Customer Service,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Customer Service,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Customer Service,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Customer Service,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Customer Service,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Customer Service,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Customer Service,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Leadership & Management,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Leadership & Management,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Leadership & Management,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Leadership & Management,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Leadership & Management,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Leadership & Management,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Leadership & Management,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Leadership & Management,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Leadership & Management,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Project Management Fundamentals,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Project Management Fundamentals,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Project Management Fundamentals,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Project Management Fundamentals,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Project Management Fundamentals,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Project Management Fundamentals,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Project Management Fundamentals,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Project Management Fundamentals,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Project Management Fundamentals,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Cyber Security Awareness,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Cyber Security Awareness,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Cyber Security Awareness,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Cyber Security Awareness,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Cyber Security Awareness,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Cyber Security Awareness,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Cyber Security Awareness,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Cyber Security Awareness,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Cyber Security Awareness,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Driver CPC,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Driver CPC,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Driver CPC,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Driver CPC,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Driver CPC,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Driver CPC,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Driver CPC,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Driver CPC,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Driver CPC,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Load Security,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Load Security,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Load Security,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Load Security,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Load Security,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Load Security,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Load Security,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Load Security,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Load Security,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Vehicle Checks and Defect Reporting,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Vehicle Checks and Defect Reporting,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Vehicle Checks and Defect Reporting,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Vehicle Checks and Defect Reporting,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Vehicle Checks and Defect Reporting,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Vehicle Checks and Defect Reporting,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Vehicle Checks and Defect Reporting,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Vehicle Checks and Defect Reporting,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Vehicle Checks and Defect Reporting,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Warehouse Safety,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Warehouse Safety,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Warehouse Safety,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Warehouse Safety,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Warehouse Safety,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Warehouse Safety,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Warehouse Safety,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Warehouse Safety,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Warehouse Safety,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths
+Site Induction,1 hour,60,1,12,48,20.0,80.0,PASS: schedule allocation maths
+Site Induction,2 hours,120,1,24,96,20.0,80.0,PASS: schedule allocation maths
+Site Induction,3 hours,180,1,36,144,20.0,80.0,PASS: schedule allocation maths
+Site Induction,4 hours,240,1,48,192,20.0,80.0,PASS: schedule allocation maths
+Site Induction,7 hours,420,1,84,336,20.0,80.0,PASS: schedule allocation maths
+Site Induction,2 days,840,2,168,672,20.0,80.0,PASS: schedule allocation maths
+Site Induction,3 days,1260,3,252,1008,20.0,80.0,PASS: schedule allocation maths
+Site Induction,4 days,1680,4,336,1344,20.0,80.0,PASS: schedule allocation maths
+Site Induction,5 days,2100,5,420,1680,20.0,80.0,PASS: schedule allocation maths

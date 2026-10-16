@@ -1,0 +1,71 @@
+subject,requested_questions,expected_behavior,status
+Manual Handling,5,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Manual Handling,10,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Manual Handling,15,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Manual Handling,20,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Manual Handling,25,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Manual Handling,30,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Manual Handling,40,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Manual Handling,50,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Manual Handling,75,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Manual Handling,100,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,5,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,10,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,15,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,20,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,25,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,30,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,40,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,50,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,75,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+First Aid,100,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,5,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,10,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,15,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,20,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,25,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,30,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,40,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,50,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,75,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Working at Height,100,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,5,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,10,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,15,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,20,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,25,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,30,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,40,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,50,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,75,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+COSHH,100,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,5,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,10,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,15,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,20,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,25,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,30,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,40,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,50,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,75,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Food Hygiene,100,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,5,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,10,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,15,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,20,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,25,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,30,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,40,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,50,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,75,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Allergen Awareness,100,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,5,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,10,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,15,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,20,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,25,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,30,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,40,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,50,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,75,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending
+Forklift / Lift Truck,100,Generate no more than requested/available; learner questions separated from answer key; no duplicate stems,Static checks only; browser export pending

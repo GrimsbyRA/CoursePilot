@@ -27,3 +27,10 @@ Before taking money, complete `privacy.html` and `terms.html` with your legal bu
 ## 5. Honest launch position
 
 CoursePilot is currently a browser-based template builder. It produces editable starter content, not fully researched, legally verified or accredited training. The current reference links are starting points for selected topics and are not live monitoring. Every trainer must review course content and answer keys before use. Do not claim accreditation unless authorised.
+
+
+## Course balance and knowledge confirmation update (v9)
+- Course balance is selectable: auto recommendation, theory-led, theory plus short assessment, 20/80, 50/50 or 80/20. This is a planning aid, not a regulatory rule.
+- Knowledge test includes five multiple-choice questions with A/B/C options, answer key and short explanations for supported subject families and a generic fallback.
+- Validate questions and answers against current course specification; adjust pass mark to awarding-body requirements.
+- Confirm schedules, practical elements and assessment are appropriate for the selected course, learner group and delivery mode.
