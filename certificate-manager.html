@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CoursePilot Certificate Manager — Prototype</title>
+<style>
+:root{--navy:#142c46;--teal:#176b55;--ink:#182230;--muted:#667085;--line:#dce3ea;--bg:#f4f7fa;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--navy);color:white;padding:18px clamp(16px,4vw,42px);display:flex;align-items:center;gap:12px;justify-content:space-between}
+.brand{font-weight:800;font-size:20px;letter-spacing:.2px}.brand small{display:block;font-weight:500;font-size:11px;letter-spacing:1.5px;color:#d5e3f0}
+main{max-width:1200px;margin:24px auto;padding:0 16px 48px}.intro{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+h1{font-size:clamp(25px,4vw,34px);line-height:1.15;margin:0 0 8px}.sub{color:var(--muted);max-width:720px;margin:0}
+.notice{border:1px solid #e6d5a8;background:#fff9e9;border-radius:12px;padding:12px 14px;color:#654d16;margin:16px 0}
+.tabs{display:flex;gap:6px;overflow:auto;background:#e9eef3;border-radius:12px;padding:5px;margin:18px 0}
+.tab{border:0;background:transparent;border-radius:8px;padding:10px 14px;white-space:nowrap;font-weight:700;color:#475467;cursor:pointer}.tab.active{background:white;color:var(--navy);box-shadow:0 1px 3px #10182818}
+.panel{display:none}.panel.active{display:block}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px #10182808}
+.card h2{font-size:18px;margin:0 0 12px}.card h3{font-size:15px;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+label{display:block;font-size:13px;font-weight:700;margin:0 0 5px;color:#344054}input,select,textarea{width:100%;border:1px solid #cfd8e3;border-radius:8px;padding:10px 11px;font:inherit;background:white;color:var(--ink)}input[type=file]{padding:8px}input[type=checkbox]{width:auto}
+.field{margin-bottom:12px}.help{font-size:12px;color:var(--muted);margin-top:5px}
+button,.button{border:0;border-radius:9px;padding:10px 14px;font:inherit;font-weight:750;cursor:pointer;background:var(--navy);color:white;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+button.secondary,.button.secondary{background:#edf2f7;color:var(--navy);border:1px solid #d8e0e8}
+button.green{background:var(--teal)}button.danger{background:#fff0f0;color:#a11;border:1px solid #f2caca}button:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.small{font-size:12px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}.stat{background:white;border:1px solid var(--line);border-radius:12px;padding:14px}.stat b{font-size:25px;display:block}.stat span{font-size:12px;color:var(--muted)}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;min-width:780px;background:white}th,td{padding:9px;border-bottom:1px solid #edf0f4;text-align:left;vertical-align:middle}th{font-size:12px;color:#475467;background:#f8fafc}td input{min-width:110px;padding:8px}
+.template-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:16px;align-items:start}
+.canvaswrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#eef2f6;min-height:200px;padding:10px;text-align:center}
+canvas{max-width:100%;height:auto;cursor:crosshair;background:white;box-shadow:0 2px 10px #0002}
+.position-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}.posbtn{background:#f3f6f9;color:#344054;border:1px solid #dce3ea;justify-content:flex-start}.posbtn.selected{background:#e3f3ed;border-color:#176b55;color:#14523f}
+.pill{display:inline-block;border-radius:999px;background:#e9f4ef;color:#176b55;padding:3px 8px;font-size:12px;font-weight:800}
+.empty{padding:22px;text-align:center;color:var(--muted)}.rowhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:760px){.grid,.grid.three,.template-layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.card{padding:14px}.tab{padding:10px}.intro{display:block}}
+</style>
+</head>
+<body>
+<header><div class="brand">CoursePilot <small>CERTIFICATE MANAGER</small></div><span class="pill">Prototype v0.1</span></header>
+<main>
+<section class="intro"><div><h1>Certificate Manager</h1><p class="sub">Use your own PDF certificate template, map the changing fields once, then create certificates individually or for a whole class.</p></div></section>
+<div class="notice"><b>Prototype notice:</b> this version runs in your browser and stores its draft register locally on this device. Do not use it for sensitive learner records or as the production service for paying customers. Email opens your email app; it does not attach files automatically.</div>
+<div class="stats"><div class="stat"><b id="statCourses">0</b><span>Course templates</span></div><div class="stat"><b id="statLearners">0</b><span>Learners in current batch</span></div><div class="stat"><b id="statIssued">0</b><span>Certificates in this browser</span></div></div>
+<nav class="tabs" aria-label="Certificate workflow">
+<button class="tab active" data-tab="setup">1. Template setup</button><button class="tab" data-tab="learners">2. Learners</button><button class="tab" data-tab="generate">3. Generate</button><button class="tab" data-tab="register">4. Register</button>
+</nav>
+<section class="panel active" id="panel-setup">
+<div class="card">
+<h2>Set up a course certificate</h2>
+<div class="grid">
+<div class="field"><label for="courseName">Course / certificate name</label><input id="courseName" placeholder="e.g. Abrasive Wheels Training"></div>
+<div class="field"><label for="templateName">Template label</label><input id="templateName" placeholder="e.g. Driving & Transport landscape certificate"></div>
+</div>
+<div class="grid">
+<div class="field"><label for="savedTemplate">Saved course templates</label><select id="savedTemplate"><option value="">Choose a saved template…</option></select></div>
+<div class="field" style="align-self:end"><button id="loadSavedTemplate" class="secondary" type="button">Load saved template</button></div>
+</div>
+<div class="field"><label for="pdfFile">Upload existing PDF certificate template</label><input id="pdfFile" type="file" accept="application/pdf,.pdf"><div class="help">Use a clean, blank certificate PDF. This prototype overlays text on page 1 of the PDF.</div></div>
+<div class="actions"><button id="loadTemplate" class="green">Load and preview PDF</button><button id="saveTemplate" class="secondary" disabled>Save course template</button><button id="newTemplate" class="secondary">New template</button></div>
+<p id="templateStatus" class="small" role="status">No PDF loaded.</p>
+</div>
+<div class="card">
+<h2>Map the text fields</h2>
+<p class="sub" style="margin-bottom:12px">Choose a field, then tap/click where its text should appear on the certificate preview. Positions are saved as percentages, so they scale to the PDF page size.</p>
+<div class="template-layout">
+<div><div class="canvaswrap"><canvas id="pdfCanvas" aria-label="PDF certificate preview"></canvas><div id="canvasEmpty" class="empty">Upload a PDF to display its first page here.</div></div><div class="help">Click the preview to position the selected field. Text appears at the chosen point.</div></div>
+<div>
+<div class="field"><label for="activeField">Field to position</label><select id="activeField">
+<option value="learnerName">Learner name</option><option value="courseTitle">Course title</option><option value="completionDate">Completion date</option><option value="instructor">Instructor / assessor</option><option value="duration">Course duration</option><option value="certificateNo">Certificate reference</option><option value="expiryDate">Expiry date (optional)</option>
+</select></div>
+<div class="position-list" id="positionList"></div>
+<div class="grid" style="margin-top:12px">
+<div class="field"><label for="fontSize">Font size (PDF points)</label><input id="fontSize" type="number" min="6" max="48" value="22"></div>
+<div class="field"><label for="textColor">Text colour</label><select id="textColor"><option value="#142c46">Navy</option><option value="#000000">Black</option><option value="#176b55">Green</option><option value="#ffffff">White</option></select></div>
+</div>
+<div class="field"><label for="textAlign">Text alignment</label><select id="textAlign"><option value="center">Centre on position</option><option value="left">Left aligned</option><option value="right">Right aligned</option></select></div>
+<div class="actions"><button id="testPreview" class="secondary">Preview sample text</button></div>
+</div>
+</div>
+</div>
+</section>
+<section class="panel" id="panel-learners">
+<div class="card">
+<div class="rowhead"><div><h2>Enter learners</h2><p class="sub">Add a learner at a time, or import a CSV file for a whole class.</p></div><button id="addLearner" class="green">+ Add learner</button></div>
+<div class="field" style="margin-top:14px"><label for="csvFile">Import learner list (.csv)</label><input id="csvFile" type="file" accept=".csv,text/csv"><div class="help">Use column headings: learnerName, courseTitle, completionDate, instructor, duration, certificateNo, expiryDate, email. Learner name is required. Dates should be YYYY-MM-DD for best results.</div></div>
+<div class="actions"><button id="downloadCsvTemplate" class="secondary">Download sample CSV</button><button id="clearLearners" class="danger">Clear batch</button></div>
+<div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>Learner name *</th><th>Email</th><th>Course title</th><th>Completion date</th><th>Instructor</th><th>Duration</th><th>Expiry date</th><th></th></tr></thead><tbody id="learnerRows"></tbody></table></div>
+<p class="small">Certificate references are generated automatically if you leave the reference blank.</p>
+</div>
+</section>
+<section class="panel" id="panel-generate">
+<div class="card">
+<h2>Review and generate</h2>
+<p class="sub">Check the course and learner list, then create individual PDF files. The original PDF is kept as the background; the app adds text over the top.</p>
+<div class="grid" style="margin-top:14px">
+<div class="field"><label for="defaultCourse">Default course title</label><input id="defaultCourse" placeholder="Course title to use when blank"></div>
+<div class="field"><label for="defaultInstructor">Default instructor</label><input id="defaultInstructor" placeholder="Instructor name to use when blank"></div>
+</div>
+<div id="generationSummary" class="notice">Load a PDF template and add at least one learner to get started.</div>
+<div class="actions"><button id="generateAll" class="green">Generate PDFs and download ZIP</button><button id="generateSeparate" class="secondary">Generate first certificate only</button></div>
+<p id="generationStatus" role="status" class="small"></p>
+</div>
+</section>
+<section class="panel" id="panel-register">
+<div class="card">
+<div class="rowhead"><div><h2>Certificate register</h2><p class="sub">Records are stored only in this browser in the prototype.</p></div><button id="exportRegister" class="secondary">Export register CSV</button></div>
+<div class="field" style="margin-top:14px"><label for="registerSearch">Search register</label><input id="registerSearch" placeholder="Search learner, course or certificate number"></div>
+<div class="tablewrap"><table><thead><tr><th>Reference</th><th>Learner</th><th>Course</th><th>Issued</th><th>Email</th><th>Status</th></tr></thead><tbody id="registerRows"></tbody></table></div>
+<div class="actions"><button id="clearRegister" class="danger">Clear local register</button></div>
+</div>
+</section>
+</main>
+<footer>CoursePilot Certificate Manager prototype · Browser-only demo · Not yet configured for secure multi-provider production use</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const fieldDefs = [
+ ['learnerName','Learner name'],['courseTitle','Course title'],['completionDate','Completion date'],
+ ['instructor','Instructor / assessor'],['duration','Course duration'],['certificateNo','Certificate reference'],['expiryDate','Expiry date']
+];
+let templateBytes=null, pdfDocument=null, templateBase64=null, pageViewport=null, currentTemplateId=null;
+let positions={}, learners=[], register=JSON.parse(localStorage.getItem('cp_cert_register_v1')||'[]');
+let templates=JSON.parse(localStorage.getItem('cp_cert_templates_v1')||'[]');
+let sampleMode=false;
+if(window.pdfjsLib){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';}
+const today=()=>new Date().toISOString().slice(0,10);
+const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const slug=s=>String(s||'certificate').normalize('NFKD').replace(/[^a-zA-Z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70)||'certificate';
+const toBase64=bytes=>{let binary='';const chunk=0x8000;for(let i=0;i<bytes.length;i+=chunk)binary+=String.fromCharCode(...bytes.subarray(i,i+chunk));return btoa(binary)};
+const fromBase64=str=>Uint8Array.from(atob(str),c=>c.charCodeAt(0));
+function saveLocal(){localStorage.setItem('cp_cert_register_v1',JSON.stringify(register));localStorage.setItem('cp_cert_templates_v1',JSON.stringify(templates));renderStats();renderRegister();renderSavedTemplates();}
+function renderSavedTemplates(){const select=$('savedTemplate');if(!select)return;const current=select.value;select.innerHTML='<option value="">Choose a saved template…</option>'+templates.map(t=>`<option value="${escapeHtml(t.id)}">${escapeHtml(t.name)} — ${escapeHtml(t.label||t.name)}</option>`).join('');if(templates.some(t=>t.id===current))select.value=current;}
+function renderStats(){$('statCourses').textContent=templates.length;$('statLearners').textContent=learners.length;$('statIssued').textContent=register.length;}
+function setTab(tab){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+tab));if(tab==='generate')updateSummary();}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
+function renderPositionList(){const list=$('positionList');list.innerHTML='';fieldDefs.forEach(([key,label])=>{const p=positions[key];const b=document.createElement('button');b.type='button';b.className='posbtn'+(key===$('activeField').value?' selected':'');b.textContent=label+': '+(p?`${Math.round(p.x*100)}%, ${Math.round(p.y*100)}%`:'not set');b.addEventListener('click',()=>{$('activeField').value=key;renderPositionList()});list.appendChild(b);});}
+$('activeField').addEventListener('change',renderPositionList);
+$('pdfFile').addEventListener('change',()=>{$('templateStatus').textContent=$('pdfFile').files[0]?`Selected: ${$('pdfFile').files[0].name}. Click Load and preview PDF.`:'No PDF loaded.';});
+async function loadPdfBytes(bytes){
+ if(!window.pdfjsLib||!window.PDFLib)throw new Error('Required PDF libraries did not load. Check internet access and reload this page.');
+ templateBytes=bytes;templateBase64=toBase64(bytes);
+ pdfDocument=await pdfjsLib.getDocument({data:bytes.slice()}).promise;
+ const page=await pdfDocument.getPage(1), base=page.getViewport({scale:1});
+ const maxWidth=Math.min(850,window.innerWidth-64),scale=Math.min(maxWidth/base.width,1.35);
+ pageViewport=page.getViewport({scale});
+ const canvas=$('pdfCanvas'),ctx=canvas.getContext('2d');
+ canvas.width=Math.floor(pageViewport.width);canvas.height=Math.floor(pageViewport.height);
+ canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';
+ $('canvasEmpty').style.display='none';canvas.style.display='inline-block';
+ await page.render({canvasContext:ctx,viewport:pageViewport}).promise;
+ $('saveTemplate').disabled=false;
+ $('templateStatus').textContent=`PDF loaded: ${pdfDocument.numPages} page(s). Mapping and output use page 1. Click the preview to position fields.`;
+ renderPositionList();drawMarkers();updateSummary();
+}
+$('loadTemplate').addEventListener('click',async()=>{
+ const f=$('pdfFile').files[0];if(!f){alert('Choose your existing PDF certificate first.');return}
+ if(f.size>12*1024*1024){alert('For this prototype, use a PDF under 12 MB.');return}
+ try{await loadPdfBytes(new Uint8Array(await f.arrayBuffer()));currentTemplateId=null;positions={};renderPositionList();drawMarkers();}catch(e){console.error(e);alert('Could not load this PDF: '+e.message)}
+});
+function drawMarkers(){const canvas=$('pdfCanvas');if(!canvas.width)return;const ctx=canvas.getContext('2d');fieldDefs.forEach(([key,label])=>{const p=positions[key];if(!p)return;const x=p.x*canvas.width,y=p.y*canvas.height;ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle=key===$('activeField').value?'#176b55':'#d97706';ctx.fill();ctx.fillStyle='#142c46';ctx.font='11px sans-serif';ctx.fillText(label,x+7,y-7);});}
+$('pdfCanvas').addEventListener('click',e=>{if(!pageViewport||!templateBytes)return;const r=e.currentTarget.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;positions[$('activeField').value]={x,y};renderPositionList();redrawPdfPreview();});
+async function redrawPdfPreview(){if(!pdfDocument)return;const page=await pdfDocument.getPage(1),canvas=$('pdfCanvas'),ctx=canvas.getContext('2d');await page.render({canvasContext:ctx,viewport:pageViewport}).promise;drawMarkers();if(sampleMode)await drawSamplePreview();}
+async function drawSamplePreview(){if(!templateBytes||!window.PDFLib)return;try{const doc=await PDFLib.PDFDocument.load(templateBytes),page=doc.getPages()[0],{width,height}=page.getSize(),font=await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);fieldDefs.forEach(([key,label])=>{const p=positions[key];if(!p)return;const text=key==='learnerName'?'Alex Example':key==='courseTitle'?($('courseName').value||'Example course'):key==='completionDate'?today():key==='instructor'?'Course Instructor':key==='duration'?'1 day':key==='certificateNo'?'CP-DEMO-0001':key==='expiryDate'?'':label;drawText(page,text,p,width,height,font);});const data=await doc.save(),blob=new Blob([data],{type:'application/pdf'}),url=URL.createObjectURL(blob);window.open(url,'_blank','noopener');setTimeout(()=>URL.revokeObjectURL(url),60000);}catch(e){alert('Preview failed: '+e.message)}}
+$('testPreview').addEventListener('click',()=>{sampleMode=true;drawSamplePreview()});
+function hexRgb(hex){const s=hex.replace('#','');return PDFLib.rgb(parseInt(s.slice(0,2),16)/255,parseInt(s.slice(2,4),16)/255,parseInt(s.slice(4,6),16)/255);}
+function drawText(page,text,p,width,height,font){if(!text||!p)return;const size=Math.max(6,Math.min(48,Number($('fontSize').value)||22));const str=String(text);const w=font.widthOfTextAtSize(str,size);let x=p.x*width;if($('textAlign').value==='center')x-=w/2;else if($('textAlign').value==='right')x-=w;x=Math.max(2,Math.min(width-w-2,x));const y=height-p.y*height-size*0.35;page.drawText(str,{x,y:Math.max(2,Math.min(height-size-2,y)),size,font,color:hexRgb($('textColor').value)});}
+$('loadSavedTemplate').addEventListener('click',async()=>{const id=$('savedTemplate').value;const t=templates.find(x=>x.id===id);if(!t){alert('Choose a saved template first.');return}try{currentTemplateId=t.id;positions={...t.positions};$('courseName').value=t.name;$('templateName').value=t.label||t.name;$('fontSize').value=t.fontSize||22;$('textColor').value=t.color||'#142c46';$('textAlign').value=t.align||'center';await loadPdfBytes(fromBase64(t.pdf));renderPositionList();drawMarkers();updateSummary();}catch(e){alert('Could not load saved template: '+e.message)}});
+$('saveTemplate').addEventListener('click',()=>{
+ if(!templateBase64){alert('Load a PDF first.');return}
+ const name=$('courseName').value.trim();if(!name){alert('Enter the course / certificate name.');return}
+ const id=currentTemplateId||('TPL-'+Date.now().toString(36).toUpperCase());
+ const item={id,name,label:$('templateName').value.trim()||name,pdf:templateBase64,positions,fontSize:Number($('fontSize').value)||22,color:$('textColor').value,align:$('textAlign').value,updated:new Date().toISOString()};
+ const i=templates.findIndex(t=>t.id===id);if(i>=0)templates[i]=item;else templates.push(item);
+ currentTemplateId=id;saveLocal();$('templateStatus').textContent=`Saved template: ${name}. Keep a backup of the original PDF.`;
+});
+$('newTemplate').addEventListener('click',()=>{currentTemplateId=null;templateBytes=null;templateBase64=null;pdfDocument=null;pageViewport=null;positions={};$('courseName').value='';$('templateName').value='';$('pdfFile').value='';$('saveTemplate').disabled=true;$('pdfCanvas').style.display='none';$('canvasEmpty').style.display='block';$('templateStatus').textContent='Ready for a new template.';renderPositionList();});
+function newLearner(){return {learnerName:'',email:'',courseTitle:$('courseName').value||'',completionDate:today(),instructor:'',duration:'',certificateNo:'',expiryDate:''};}
+function renderLearners(){const tbody=$('learnerRows');tbody.innerHTML='';if(!learners.length){tbody.innerHTML='<tr><td colspan="8" class="empty">No learners added yet.</td></tr>';updateSummary();renderStats();return}
+learners.forEach((l,i)=>{const tr=document.createElement('tr');const fields=[['learnerName','Learner name'],['email','Email'],['courseTitle','Course title'],['completionDate','Completion date'],['instructor','Instructor'],['duration','Duration'],['expiryDate','Expiry date']];fields.forEach(([key,label])=>{const td=document.createElement('td'),input=document.createElement('input');input.setAttribute('aria-label',label+' row '+(i+1));input.value=l[key]||'';input.type=(key==='completionDate'||key==='expiryDate')?'date':'text';if(key==='email')input.type='email';if(key==='learnerName')input.required=true;input.addEventListener('input',()=>{learners[i][key]=input.value;updateSummary()});td.appendChild(input);tr.appendChild(td)});const td=document.createElement('td'),btn=document.createElement('button');btn.textContent='Remove';btn.className='danger';btn.type='button';btn.addEventListener('click',()=>{learners.splice(i,1);renderLearners()});td.appendChild(btn);tr.appendChild(td);tbody.appendChild(tr)});renderStats();updateSummary();}
+$('addLearner').addEventListener('click',()=>{learners.push(newLearner());renderLearners()});
+$('clearLearners').addEventListener('click',()=>{if(confirm('Clear all learners from the current batch?')){learners=[];renderLearners()}});
+function parseCsv(text){const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'&&quoted&&n==='"'){cell+='"';i++}else if(c==='"'){quoted=!quoted}else if(c===','&&!quoted){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))rows.push(row);row=[];cell=''}else cell+=c}row.push(cell);if(row.some(v=>v.trim()))rows.push(row);return rows}
+$('csvFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const rows=parseCsv(await f.text());if(rows.length<2)throw new Error('CSV needs a header row and at least one learner row.');const headers=rows[0].map(s=>s.trim().replace(/^\uFEFF/,''));const allowed=['learnerName','email','courseTitle','completionDate','instructor','duration','certificateNo','expiryDate'];const map={};headers.forEach((h,i)=>{const normalized=allowed.find(a=>a.toLowerCase()===h.toLowerCase().replace(/[\s_-]/g,''))||allowed.find(a=>a.toLowerCase()===h.toLowerCase());if(normalized)map[normalized]=i});if(map.learnerName===undefined)throw new Error('Could not find a learnerName column. Use the sample CSV headings.');const imported=rows.slice(1).map(r=>{const l=newLearner();allowed.forEach(k=>{if(map[k]!==undefined)l[k]=(r[map[k]]||'').trim()});return l}).filter(l=>l.learnerName);if(!imported.length)throw new Error('No learner names found.');learners=learners.concat(imported);renderLearners();$('templateStatus').textContent=`Imported ${imported.length} learners from ${f.name}.`;setTab('learners');}catch(err){alert('CSV import failed: '+err.message)}finally{e.target.value=''}});
+$('downloadCsvTemplate').addEventListener('click',()=>downloadBlob('coursepilot-learners-sample.csv','text/csv','learnerName,email,courseTitle,completionDate,instructor,duration,certificateNo,expiryDate\nAlex Example,alex@example.com,Abrasive Wheels Training,2026-10-16,Trainer Name,Half day,,\nJordan Example,jordan@example.com,Abrasive Wheels Training,2026-10-16,Trainer Name,Half day,,\n'));
+function updateSummary(){const valid=learners.filter(l=>l.learnerName.trim()).length;const mapped=fieldDefs.filter(([k])=>positions[k]).length;$('generationSummary').textContent=`Template: ${$('courseName').value||'not named'} · Learners: ${valid} valid of ${learners.length} · Fields positioned: ${mapped} of ${fieldDefs.length}. ${!templateBytes?'Load a PDF template first.':valid?'Ready to generate.':'Add at least one learner with a name.'}`;$('generateAll').disabled=!templateBytes||valid===0;$('generateSeparate').disabled=!templateBytes||valid===0;}
+['courseName','defaultCourse','defaultInstructor'].forEach(id=>$(id).addEventListener('input',updateSummary));
+async function makePdf(learner){if(!templateBytes)throw new Error('No PDF template loaded.');const doc=await PDFLib.PDFDocument.load(templateBytes),page=doc.getPages()[0],{width,height}=page.getSize(),font=await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);const l={...learner};l.courseTitle=l.courseTitle||$('defaultCourse').value||$('courseName').value;l.instructor=l.instructor||$('defaultInstructor').value;l.certificateNo=l.certificateNo||`CP-${(l.completionDate||today()).replace(/-/g,'')}-${Math.random().toString(36).slice(2,7).toUpperCase()}`;fieldDefs.forEach(([key])=>{const p=positions[key];if(p)drawText(page,l[key],p,width,height,font)});return {bytes:await doc.save(),learner:l};}
+async function generateBatch(all){const batch=learners.filter(l=>l.learnerName.trim());if(!templateBytes){alert('Load the PDF template first.');return}if(!batch.length){alert('Add at least one learner with a name.');return}if(all&&!window.JSZip){alert('ZIP library did not load. Reload the page or generate one certificate at a time.');return}
+$('generationStatus').textContent='Generating certificates…';$('generateAll').disabled=true;$('generateSeparate').disabled=true;
+try{const zip=all?new JSZip():null,generated=[];const list=all?batch:batch.slice(0,1);
+for(let i=0;i<list.length;i++){const result=await makePdf(list[i]);const filename=`${slug(result.learner.learnerName)}-${slug(result.learner.courseTitle)}-${slug(result.learner.certificateNo)}.pdf`;if(zip)zip.file(filename,result.bytes);else downloadBlob(filename,'application/pdf',result.bytes);generated.push({filename,result});}
+const issuedAt=new Date().toISOString();generated.forEach(({filename,result})=>register.unshift({id:result.learner.certificateNo,learnerName:result.learner.learnerName,email:result.learner.email,courseTitle:result.learner.courseTitle,completionDate:result.learner.completionDate,issuedAt,status:'Generated in browser',filename,provider:'Local prototype'}));saveLocal();
+if(zip){const blob=await zip.generateAsync({type:'blob'});downloadBlob(`CoursePilot-certificates-${today()}.zip`,'application/zip',blob);}
+$('generationStatus').textContent=`Generated ${generated.length} PDF certificate(s). ${all?'A ZIP file has been downloaded.':'The first PDF has been downloaded.'} Check the certificate register.`;
+setTab('register');
+}catch(e){console.error(e);$('generationStatus').textContent='Generation failed: '+e.message;alert('Certificate generation failed: '+e.message)}
+finally{$('generateAll').disabled=false;$('generateSeparate').disabled=false;updateSummary();}
+}
+$('generateAll').addEventListener('click',()=>generateBatch(true));$('generateSeparate').addEventListener('click',()=>generateBatch(false));
+function downloadBlob(name,type,data){const blob=data instanceof Blob?data:new Blob([data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+function renderRegister(){const tbody=$('registerRows'),q=($('registerSearch')?.value||'').toLowerCase();if(!tbody)return;const items=register.filter(r=>[r.id,r.learnerName,r.courseTitle,r.email].some(v=>String(v||'').toLowerCase().includes(q)));tbody.innerHTML='';if(!items.length){tbody.innerHTML='<tr><td colspan="6" class="empty">No matching certificates in this browser.</td></tr>';return}items.forEach(r=>{const tr=document.createElement('tr');[r.id,r.learnerName,r.courseTitle,r.issuedAt?new Date(r.issuedAt).toLocaleDateString():'',r.email||'—',r.status||'Generated'].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});tbody.appendChild(tr)});}
+$('registerSearch').addEventListener('input',renderRegister);
+$('exportRegister').addEventListener('click',()=>{const cols=['id','learnerName','email','courseTitle','completionDate','issuedAt','status','filename'];const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';downloadBlob('coursepilot-certificate-register.csv','text/csv',[cols.join(','),...register.map(r=>cols.map(c=>esc(r[c])).join(','))].join('\n'));});
+$('clearRegister').addEventListener('click',()=>{if(confirm('Permanently clear the certificate register stored in this browser?')){register=[];saveLocal()}});
+renderPositionList();renderLearners();renderStats();renderSavedTemplates();renderRegister();updateSummary();
+})();
+</script>
+</body>
+</html>
