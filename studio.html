@@ -62,7 +62,8 @@ main{padding:30px 0 60px}.intro{margin-bottom:22px}.intro h2{font-size:30px;lett
 </div>
 </main>
 <footer style="background:#10243a;color:#d7e0e9;padding:22px 0;font-size:13px"><div class="wrap">CoursePilot is a starter-material tool, not an accreditation or compliance service. Review all outputs before use. <a style="color:#8ee2dc" href="index.html">Home</a> · <a style="color:#8ee2dc" href="privacy.html">Privacy</a> · <a style="color:#8ee2dc" href="terms.html">Terms</a></div></footer>
-<script src="pptxgen.bundle.js"></script>
+<script src="jszip.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js" onerror="document.getElementById('status').textContent='PowerPoint library could not load. Check your internet connection and reload the page.';"></script>
 <script>
 const $=id=>document.getElementById(id);
 let outputs={},current='overview',fullPack='';
