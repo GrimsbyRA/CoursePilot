@@ -1,79 +1,32 @@
-# CoursePilot website prototype — refreshed design
+# CoursePilot — First usable product prototype
 
-## What is included
-- Responsive landing page for an AI-assisted training administration service
-- Features and workflow sections
-- Sample output for a fictional Manual Handling Awareness course
-- Proposed pricing section (£9 one-off, £19/month, £39/month)
-- Course request form that generates a copyable brief locally in the browser
-- Download brief as a `.txt` file
-- Clear notes that AI generation, user accounts, email submission, subscriptions and payment processing are NOT connected
+## Files
+- `index.html` — public marketing website
+- `studio.html` — interactive course pack builder
+- `coursepilot-logo.png` — logo asset
 
-## Run locally
-Open `index.html` in a modern browser. No build tools or API keys are required.
+## What works in Studio
+- Course provider, title, sector, duration, audience and learning outcomes inputs
+- Selectable outputs: course plan, presentation outline, quiz outline, learner handout, marketing pack, certificate template, launch checklist
+- Certificate preview personalised with learner name, date, provider and signatory
+- Copy current output, download the pack as a `.txt` file, print the current view
+- Course suggestions and brand colour preference
+- All generated content runs locally in the browser; no data is transmitted or saved online
 
-## Publish free using GitHub Pages
-1. Sign in at https://github.com/ or create a free account.
-2. Create a new **public** repository called `coursepilot`.
-3. Upload `index.html` to the repository root (not inside a nested folder) and commit the file.
-4. In the repository, open **Settings → Pages**.
-5. Under build and deployment, choose **Deploy from a branch**.
-6. Select branch `main` and folder `/ (root)`, then save.
-7. Wait for the deployment. The site URL will normally look like `https://YOUR-USERNAME.github.io/coursepilot/`.
+## Important limits
+This is a functional front-end prototype using templates. It does not generate a real editable PowerPoint (`.pptx`), automatically research current legislation or statistics, verify accuracy, store customer accounts, send emails, publish adverts, save project history or take payments. It does not issue accredited qualifications. All material must be reviewed by a competent trainer and authoritative sources.
 
-GitHub UI wording may change. A public static site is appropriate for this front-end prototype, but do not put secrets, API keys, customer data or private business information into the repository.
+## Publish both pages on GitHub Pages
+1. Extract the ZIP.
+2. Upload `index.html`, `studio.html`, and `coursepilot-logo.png` to the root of the existing public `CoursePilot` repository.
+3. Commit the changes.
+4. The main site remains `https://grimsbyra.github.io/CoursePilot/`.
+5. The Studio page should be available at `https://grimsbyra.github.io/CoursePilot/studio.html`.
+6. Add a navigation link to Studio from the homepage when ready, or customers can open the direct Studio link.
 
-## How the form works
-The course form creates a text brief locally in the browser. The user can copy it into an AI assistant or download it as a text file. It does not send data anywhere, save data to a server, send emails, call an AI API or take payment.
-
-## Before accepting customers
-- Validate demand and get feedback from real training providers.
-- Add a backend with secure authentication, server-side validation and data minimisation.
-- Add AI API integration with rate limits, cost controls and clear disclosure.
-- Add a privacy notice and appropriate data retention/deletion procedures.
-- Add a payment provider and subscription lifecycle handling only after testing.
-- Review consumer terms, refund/cancellation rules, VAT and tax position as applicable.
-- Have all safety-critical, regulated or technical training outputs reviewed by a competent subject matter expert.
-- Avoid claiming accreditation, certification or legal compliance unless substantiated.
-- Consider whether the business needs professional indemnity/cyber insurance.
-
-## Suggested next technical stage
-A sensible stack after demand validation:
-- Frontend: Next.js + TypeScript
-- Backend: server-side API routes
-- Database/auth: Supabase or managed PostgreSQL with row-level security
-- AI: API integration kept server-side; never expose the API key in browser JavaScript
-- Billing: Stripe or equivalent, with webhooks and subscription state validation
-- Monitoring: logs, rate limits, backups and error alerts
-
-This prototype is not a production application and is not legal or regulatory advice.
-
-
-## Recent updates
-- Added a top navigation link to Popular courses and Build a course.
-- Added a list of common cross-sector course topics (illustrative examples, not a verified ranking).
-- Added optional local logo selection with browser preview.
-- Added preferred colour scheme to the course request brief.
-- Logo selection stays in the browser; it is not uploaded or persisted by this static prototype.
-
-
-## Functional launch-pack workflow
-The form now builds a local starter pack from the submitted course details, including selected outlines for course plans, presentation structure, quiz preparation, learner handout, social posts, flyer copy, email promotion and a launch administration checklist. The user can copy or download the pack as a text file. This is deterministic template output, not an AI API call. The logo is only previewed in the browser and is not saved or embedded in the output. No form data is transmitted, persisted online, or used for payment.
-
-
-## Positioning update
-The landing page now sells CoursePilot as an end-to-end training support hub: course materials, consistent branding, promotional copy and launch administration. It deliberately distinguishes the current template-based browser prototype from future AI generation, saved projects, finished PowerPoint export, automatic publishing and payment features.
-
-
-## Logo included
-The site uses `coursepilot-logo.png` in the header and footer. Keep this image in the same repository folder as `index.html` when uploading to GitHub Pages.
-
-## Publish/update on GitHub Pages
-Upload both `index.html` and `coursepilot-logo.png` to the repository root, replacing the existing `index.html`, then commit the changes. Do not upload the ZIP itself as the website; extract it first.
-
-
-## Latest information and certificates update
-- Removed AI-led marketing language; the brand is presented as a training-support service.
-- Added a section explaining the planned workflow for current legislation, regulations, guidance, statistics and source review.
-- Added certificate templates and a personalised certificate service enquiry as possible outputs.
-- Certificate and compliance claims remain subject to competent review. The current static prototype does not automatically research or verify current legal requirements or issue accredited certificates.
+## Next production steps
+1. Build actual `.pptx` generation and editable document exports.
+2. Add a server-side research workflow using authoritative sources with source URLs and review dates.
+3. Add secure accounts and saved projects.
+4. Add payment processing, terms, privacy notice, refunds/cancellation handling and tax review.
+5. Test accessibility, security, content quality and mobile usability.

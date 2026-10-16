@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CoursePilot Studio — Resource Pack Builder</title>
+<style>
+:root{--navy:#10243a;--teal:#087f8c;--pale:#e7f5f4;--ink:#192a3d;--muted:#66778b;--line:#dfe7ee;--bg:#f5f8fb;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);line-height:1.5}
+header{background:var(--navy);color:#fff;padding:22px 0}.wrap{max-width:1080px;padding:0 20px;margin:auto}.head{display:flex;align-items:center;gap:14px}.head img{width:54px;height:54px;object-fit:contain;background:#fff;border-radius:10px}.head h1{margin:0;font-size:25px;letter-spacing:-.8px}.head p{margin:2px 0 0;color:#c9d7e5;font-size:13px}
+main{padding:30px 0 60px}.intro{margin-bottom:22px}.intro h2{font-size:30px;letter-spacing:-1px;margin:0 0 8px;color:var(--navy)}.intro p{margin:0;color:var(--muted);max-width:800px}
+.layout{display:grid;grid-template-columns:360px 1fr;gap:20px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 8px 25px #10243a08}.panel h3{margin:0 0 15px;color:var(--navy)}label{font-size:13px;font-weight:750;display:block;margin:13px 0 6px}input,select,textarea{width:100%;padding:11px;border:1px solid #cfd9e3;border-radius:9px;font:inherit;background:#fff;color:var(--ink)}textarea{min-height:80px;resize:vertical}.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.checks label{display:flex;align-items:center;gap:7px;font-weight:500;margin:0;color:var(--muted)}.checks input{width:auto}.btn{border:0;border-radius:9px;padding:12px 15px;background:var(--teal);color:white;font-weight:800;cursor:pointer;margin-top:14px}.btn.secondary{background:#fff;color:var(--navy);border:1px solid var(--line)}.btn-row{display:flex;gap:8px;flex-wrap:wrap}.note{font-size:12px;color:var(--muted);margin-top:10px}.warning{background:#fff6e5;border:1px solid #f0d7a3;color:#76551d;padding:12px;border-radius:10px;font-size:12px;margin-bottom:15px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:15px}.tab{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:12px;font-weight:750;cursor:pointer;color:var(--muted)}.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}.preview{background:#fff;border:1px solid var(--line);border-radius:12px;padding:25px;min-height:430px;overflow:auto}.doc-kicker{font-size:11px;font-weight:900;letter-spacing:1.5px;color:var(--teal);text-transform:uppercase}.preview h2{font-size:28px;line-height:1.15;color:var(--navy);margin:8px 0}.preview h3{color:var(--navy);margin:22px 0 6px}.preview p,.preview li{color:#53657a;font-size:14px}.preview table{width:100%;border-collapse:collapse;font-size:13px}.preview td,.preview th{border-bottom:1px solid var(--line);padding:9px;text-align:left}.preview th{color:var(--navy)}.cert{border:8px double var(--teal);padding:26px;text-align:center;background:linear-gradient(135deg,#fff,#f1fbfa);min-height:360px;display:flex;flex-direction:column;justify-content:center}.cert .provider{font-size:13px;letter-spacing:2px;color:var(--teal);font-weight:800}.cert h2{font-size:32px}.cert .learner{font-size:25px;color:var(--navy);font-weight:800;border-bottom:1px solid #b7c7d5;display:inline-block;padding:8px 18px;margin:10px auto}.cert .small{font-size:12px;color:var(--muted)}.status{font-size:12px;color:var(--muted);margin-top:10px}.hidden{display:none!important}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.head img{width:45px;height:45px}.intro h2{font-size:26px}.panel{padding:17px}.preview{padding:18px}}
+@media print{header,.intro,.form-panel,.tabs,.btn-row,.status,.note,.warning{display:none!important}body{background:#fff}.wrap{max-width:none;padding:0}.layout{display:block}.panel{border:0;box-shadow:none;padding:0}.preview{border:0;padding:0}.cert{min-height:90vh}}
+</style></head>
+<body>
+<header><div class="wrap head"><img src="coursepilot-logo.png" alt="CoursePilot logo"><div><h1>CoursePilot Studio</h1><p>Course materials, certificates and marketing drafts — together.</p></div></div></header>
+<main class="wrap">
+<div class="intro"><h2>Build your course launch pack</h2><p>Enter your course details once, choose the materials you need, and create editable starter content you can copy, download or print. This first version runs in your browser and does not send your information anywhere.</p></div>
+<div class="layout">
+<section class="panel form-panel">
+<h3>1. Course details</h3>
+<div class="warning">Prototype: this tool uses built-in templates. It does not research current laws, verify statistics, create a .pptx file, send emails or process payments. Check all course content before use.</div>
+<form id="builder">
+<label for="provider">Training provider / business *</label><input id="provider" required placeholder="e.g. ABC Training">
+<label for="course">Course title *</label><input id="course" list="courseList" required placeholder="Choose or type a course">
+<datalist id="courseList"><option>Manual Handling Awareness</option><option>Fire Safety Awareness</option><option>COSHH Awareness</option><option>Working at Height</option><option>Risk Assessment</option><option>First Aid Awareness</option><option>Safeguarding Awareness</option><option>Equality, Diversity & Inclusion</option><option>Food Hygiene</option><option>Allergen Awareness</option><option>Customer Service</option><option>Leadership & Management</option><option>Project Management Fundamentals</option><option>Cyber Security Awareness</option><option>Driver CPC</option><option>Load Security</option><option>Vehicle Checks and Defect Reporting</option><option>Warehouse Safety</option><option>Site Induction</option></datalist>
+<label for="sector">Sector</label><select id="sector"><option>General / cross-sector</option><option>Construction</option><option>Transport & logistics</option><option>Health & social care</option><option>Hospitality & food</option><option>Business & management</option><option>IT & digital</option><option>Manufacturing</option><option>Education</option><option>Other</option></select>
+<label for="duration">Duration</label><input id="duration" placeholder="e.g. 3 hours or 1 day">
+<label for="audience">Target learners</label><input id="audience" placeholder="e.g. new starters, supervisors">
+<label for="objectives">Learning outcomes / key topics</label><textarea id="objectives" placeholder="What should learners know or be able to do?"></textarea>
+<label for="brand">Preferred colour scheme</label><select id="brand"><option>Navy and teal</option><option>Blue and white</option><option>Black and gold</option><option>Green and neutral</option><option>Red and charcoal</option><option>Match my logo (manual styling required)</option></select>
+<label for="learner">Certificate learner name (optional)</label><input id="learner" placeholder="Enter name to personalise certificate">
+<label for="date">Completion date (optional)</label><input id="date" type="date">
+<label for="signatory">Trainer / authorised signatory (optional)</label><input id="signatory" placeholder="Name and role">
+<label>Include in the pack</label><div class="checks">
+<label><input type="checkbox" name="outputs" value="plan" checked> Course plan</label>
+<label><input type="checkbox" name="outputs" value="slides" checked> Presentation outline</label>
+<label><input type="checkbox" name="outputs" value="quiz" checked> Quiz outline</label>
+<label><input type="checkbox" name="outputs" value="handout"> Learner handout</label>
+<label><input type="checkbox" name="outputs" value="marketing" checked> Marketing pack</label>
+<label><input type="checkbox" name="outputs" value="certificate" checked> Certificate template</label>
+<label><input type="checkbox" name="outputs" value="checklist" checked> Launch checklist</label>
+</div>
+<button class="btn" type="submit">Build my pack</button>
+<div class="note">No account or payment is needed for this demo. Your entries remain in this page until you close or refresh it.</div>
+</form>
+</section>
+<section class="panel">
+<h3>2. Your outputs</h3>
+<div class="tabs" id="tabs">
+<button class="tab active" data-tab="overview">Overview</button><button class="tab" data-tab="slides">Presentation</button><button class="tab" data-tab="marketing">Marketing</button><button class="tab" data-tab="certificate">Certificate</button><button class="tab" data-tab="checklist">Launch checklist</button>
+</div>
+<div id="preview" class="preview">
+<div class="doc-kicker">COURSEPILOT STUDIO · SAMPLE</div><h2>Your course launch pack, organised.</h2><p>Complete the course details and select <strong>Build my pack</strong>. Your draft resources will appear here.</p>
+<h3>Included in the pack</h3><ul><li>Course plan and presentation outline</li><li>Quiz and learner resource outlines</li><li>Marketing copy and course promotion ideas</li><li>Certificate template</li><li>Launch and administration checklist</li></ul>
+<p>Use the tabs above to review each output. You can copy the pack as text, download it, or print the certificate preview.</p>
+</div>
+<div class="btn-row"><button class="btn" id="copy">Copy current output</button><button class="btn secondary" id="download">Download pack (.txt)</button><button class="btn secondary" id="print">Print current view</button></div>
+<div class="status" id="status">No pack generated yet.</div>
+</section>
+</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let outputs={},current='overview',fullPack='';
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function vals(){return {provider:$('provider').value.trim()||'Provider name',course:$('course').value.trim()||'Course title',sector:$('sector').value,duration:$('duration').value.trim()||'To be confirmed',audience:$('audience').value.trim()||'Target learners to be confirmed',objectives:$('objectives').value.trim()||'Confirm measurable learning outcomes with the trainer.',brand:$('brand').value,learner:$('learner').value.trim()||'[Learner name]',date:$('date').value||'[Completion date]',signatory:$('signatory').value.trim()||'[Trainer / authorised signatory]'};}
+function generate(){
+ const d=vals(),selected=[...document.querySelectorAll('input[name="outputs"]:checked')].map(x=>x.value);
+ outputs={};
+ outputs.overview=`COURSEPILOT COURSE LAUNCH PACK\nProvider: ${d.provider}\nCourse: ${d.course}\nSector: ${d.sector}\nDuration: ${d.duration}\nAudience: ${d.audience}\nBrand preference: ${d.brand}\nLearning outcomes/topics: ${d.objectives}\n\nIncluded: ${selected.join(', ')||'No outputs selected'}\n\nNOTE: These are template-based drafts. Verify facts, regulations, technical details and assessment answers against authoritative current sources before use.`;
+ if(selected.includes('plan'))outputs.plan=`COURSE PLAN OUTLINE\n${d.course}\nProvider: ${d.provider} | Sector: ${d.sector}\nDuration: ${d.duration} | Audience: ${d.audience}\n\nDraft outcomes/topics:\n${d.objectives}\n\nSuggested session structure:\n1. Welcome, aims and prior knowledge\n2. Explain key concepts and terminology\n3. Trainer-led example or demonstration\n4. Guided learner activity / scenario\n5. Knowledge check and feedback\n6. Summary, questions and evaluation\n\nTrainer preparation: confirm resources, accessibility needs, venue/platform, assessment method and current source materials.`;
+ outputs.slides=`PRESENTATION OUTLINE — ${d.course}\n1. Title slide — ${d.provider}\n2. Course aims and learning outcomes\n3. Why the subject matters to ${d.audience}\n4. Key concepts and terminology\n5. Practical example or scenario\n6. Guided activity or demonstration\n7. Common errors, risks or misconceptions (verify for this subject)\n8. Knowledge check and discussion\n9. Key takeaways and next steps\n10. Questions, evaluation and contact details\n\nBrand direction: ${d.brand}. This is an outline, not a finished PowerPoint file.`;
+ if(selected.includes('quiz'))outputs.quiz=`QUIZ OUTLINE — ${d.course}\nDraft 5–10 questions aligned to the confirmed learning outcomes. Use a mix of multiple choice, true/false and scenario questions. Provide the correct answer and a short explanation for each. Trainer must verify all answers and source references before use.`;
+ if(selected.includes('handout'))outputs.handout=`LEARNER HANDOUT OUTLINE — ${d.course}\n- Course title, provider and version/date\n- Learning outcomes and key terms\n- Main topic summaries in plain language\n- Practical checklist or worked example\n- Space for notes and questions\n- Knowledge-check recap\n- Further reading / authoritative sources verified by trainer\n- Contact and feedback details`;
+ if(selected.includes('marketing'))outputs.marketing=`MARKETING PACK — ${d.course}\n\nCOURSE DESCRIPTION\n${d.provider} is preparing ${d.course} for ${d.audience}. Duration: ${d.duration}. Contact the provider for confirmed dates, availability, delivery details and price.\n\nSOCIAL POST 1\n📣 New course: ${d.course}\nDesigned for ${d.audience}. Delivered by ${d.provider}.\nMessage us for dates and booking details.\n\nSOCIAL POST 2\nLooking to develop knowledge and confidence in ${d.course}? Get in touch with ${d.provider} for further information.\n\nFLYER COPY\n${d.course}\nFor: ${d.audience}\nDuration: ${d.duration}\nProvider: ${d.provider}\nBooking: [Add confirmed booking link/contact details]\n\nEMAIL SUBJECT: Course information — ${d.course}\nHello,\nWe are preparing ${d.course}, designed for ${d.audience}. Please contact ${d.provider} for dates, pricing and booking information.\nKind regards,\n${d.provider}\n\nBefore publishing, confirm dates, price, availability, booking links and all claims. Do not imply accreditation unless authorised.`;
+ if(selected.includes('certificate'))outputs.certificate=`CERTIFICATE TEMPLATE — ${d.course}\n\nCERTIFICATE OF COMPLETION\n\nThis certifies that\n${d.learner}\n\nhas completed\n${d.course}\n\nProvider: ${d.provider}\nDuration: ${d.duration}\nCompletion date: ${d.date}\nTrainer / authorised signatory: ${d.signatory}\n\n[Provider logo]                         [Signature]\n\nOnly use wording that accurately reflects the training delivered. Do not claim an accredited qualification unless formally authorised. This is a template, not a regulated certificate or accreditation.`;
+ if(selected.includes('checklist'))outputs.checklist=`COURSE LAUNCH CHECKLIST — ${d.course}\n[ ] Confirm course scope, objectives and target audience\n[ ] Verify current legislation, guidance, facts, statistics and source dates where relevant\n[ ] Confirm trainer competence and any required approvals\n[ ] Finalise presentation, lesson plan, handouts and assessment\n[ ] Review accessibility, spelling, branding and readability\n[ ] Confirm date, duration, delivery location/platform, capacity and price\n[ ] Set up booking route, privacy information and cancellation terms\n[ ] Prepare learner joining instructions and reminders\n[ ] Prepare attendance and evaluation records as appropriate\n[ ] Review certificate wording and authorised signatory\n[ ] Test booking link and contact details\n[ ] Publish promotion only after details are confirmed\n[ ] Collect feedback and record improvements`;
+ fullPack=Object.entries(outputs).map(([k,v])=>`===== ${k.toUpperCase()} =====\n${v}`).join('\n\n');
+ current='overview';render();
+ $('status').textContent='Starter pack generated locally. No information has been sent or saved online.';
+}
+function render(){
+ document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===current));
+ let html='';
+ if(current==='certificate'&&outputs.certificate){
+  const d=vals();html=`<div class="cert"><div class="provider">${esc(d.provider)}</div><div class="doc-kicker">Certificate of Completion</div><h2>${esc(d.course)}</h2><p>This certifies that</p><div class="learner">${esc(d.learner)}</div><p>has completed the course shown above.</p><p><strong>Duration:</strong> ${esc(d.duration)} &nbsp; <strong>Date:</strong> ${esc(d.date)}</p><p class="small">Trainer / authorised signatory: ${esc(d.signatory)}</p><p class="small">Add approved logo, signature and any authorised wording before issuing.</p></div>`;
+ } else {
+  const key=current==='overview'?(outputs.overview?'overview':Object.keys(outputs)[0]):current;
+  const text=outputs[key]||'Generate a pack first, or select a different output.';
+  html=`<div class="doc-kicker">COURSEPILOT STUDIO · ${esc(key)}</div><pre style="white-space:pre-wrap;font:14px/1.7 ui-monospace,monospace;color:#53657a;margin:10px 0">${esc(text)}</pre>`;
+ }
+ $('preview').innerHTML=html;
+}
+$('builder').addEventListener('submit',e=>{e.preventDefault();generate()});
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{current=b.dataset.tab;render()}));
+$('copy').addEventListener('click',async()=>{let text=current==='certificate'?outputs.certificate:(outputs[current]||outputs.overview||'Generate a pack first.');try{await navigator.clipboard.writeText(text);$('status').textContent='Copied current output.'}catch(e){$('status').textContent='Clipboard unavailable. Select the output text and copy it manually.'}});
+$('download').addEventListener('click',()=>{if(!fullPack){$('status').textContent='Build a pack first.';return;}const blob=new Blob([fullPack],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='coursepilot-course-pack.txt';a.click();URL.revokeObjectURL(a.href);$('status').textContent='Downloaded starter pack text.'});
+$('print').addEventListener('click',()=>window.print());
+</script>
+</body></html>
