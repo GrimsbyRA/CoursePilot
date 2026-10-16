@@ -1,37 +1,35 @@
-# CoursePilot website package — v3 starter
+# CoursePilot — final testing package
 
-Upload the website files from this folder to the root of the GitHub repository `GrimsbyRA/CoursePilot`.
+Static website prototype for independent training providers. Designed to run on GitHub Pages without a server.
 
-## Website files
-- `index.html` — public landing page and local course brief builder
-- `studio.html` — course pack builder
-- `pptxgen.bundle.js` — required local library for PowerPoint export
-- `coursepilot-logo.png` — logo
-- `privacy.html` — draft privacy notice (complete placeholders and review before launch)
-- `terms.html` — draft terms of use (complete placeholders and review before launch)
-- `pricing.html` — proposed £9 one-off pack and £19/month membership pricing; checkout buttons remain disabled until configured
-- `stripe-config.js` — public Payment Link URL settings only; never put Stripe secret keys here
-- `payment-success.html` and `payment-cancelled.html` — basic post-checkout pages for use after Stripe is configured
-- `PAYMENTS_SETUP.md` — step-by-step Stripe and manual fulfilment setup
+## Files
 
-`SETUP_AND_LAUNCH.md` contains mobile deployment steps, functional tests, limitations and the remaining owner-only actions.
+- `index.html` — marketing homepage and feature descriptions
+- `studio.html` — local course pack builder and exports
+- `pricing.html` — pricing and payment-link page
+- `payment-config.js` — public configuration for your own Lopay HTTPS links (blank by default)
+- `payment-success.html`, `payment-cancelled.html` — informational checkout return pages; they do not verify payments
+- `privacy.html`, `terms.html` — draft policies that need your real details and review
+- `pptxgen.bundle.js` — local browser library used for editable PowerPoint export
+- `coursepilot-logo.png` — brand image
+- `PAYMENTS_SETUP.md` — payment setup and limitations
+- `SETUP_AND_LAUNCH.md` — publishing guide
+- `TEST_CHECKLIST.md` — step-by-step acceptance tests
 
-## Studio capabilities
-- Editable `.pptx` starter deck with instructor notes
-- Editable Word-compatible `.rtf` course pack
-- Text pack download, copy and print
-- Starter quiz questions for selected topics
-- Official reference links for selected topics and a source-review checklist
-- Certificate preview and marketing drafts
+## Publish on GitHub Pages
 
-## Important
-This remains a static front-end prototype. It does not live-verify current legislation or guarantee technical accuracy, legal compliance, accreditation or assessment validity. The generated presentation is a starter deck, not a finished course. No account system, online saving, lead delivery, email sending, payments, subscription management or publishing integrations are connected until you configure external services. Pricing buttons are deliberately disabled until real Stripe Payment Links are added. The landing-page request form does not submit information to the operator. Do not advertise it as a working customer lead form until a real submission route is configured and tested.
+Upload **all files in this folder** directly into the repository root (the same folder as `index.html`), not the ZIP itself and not an extra nested folder. Keep filenames exactly as provided. Enable GitHub Pages from `main` and `/(root)`.
 
-## URLs after publishing
-- https://grimsbyra.github.io/CoursePilot/
-- https://grimsbyra.github.io/CoursePilot/studio.html
-- https://grimsbyra.github.io/CoursePilot/privacy.html
-- https://grimsbyra.github.io/CoursePilot/terms.html
-- https://grimsbyra.github.io/CoursePilot/pricing.html
-- https://grimsbyra.github.io/CoursePilot/payment-success.html
-- https://grimsbyra.github.io/CoursePilot/payment-cancelled.html
+## What works in this prototype
+
+- Build a template-based starter pack locally in the browser
+- Review course plan, presentation outline, quiz, handout, marketing, certificate, launch checklist and starting references
+- Download a `.pptx` starter presentation with speaker notes
+- Download the complete pack as `.txt` or Word-compatible `.rtf`, and download individual sections
+- Download a certificate template as HTML and print it to PDF from a browser
+- Copy current output when browser clipboard permissions allow it
+- Pricing page reads your public `payment-config.js` and opens configured HTTPS payment links
+
+## What is not implemented
+
+No server, AI/content generation service, automatic live legislation checking, customer accounts, online saving, secure payment verification, automatic paid-file delivery, subscription entitlement management, or automatic email sending. The resources are editable drafts/starter content, not complete accredited or compliance-verified training. The membership is not ready to sell until recurring billing and cancellation are supported and tested.
